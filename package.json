@@ -6,7 +6,8 @@
     "node": ">= 14.16 <15"
   },
   "scripts": {
-    "start": "kill-port 5000 & nodemon --config restart.json",
+    "start": "ts-node -r tsconfig-paths/register -r dotenv/config src/index",
+    "dev": "kill-port 5000 & nodemon --config restart.json",
     "clean": "rm -rf coverage build tmp",
     "prebuild": "npm run lint",
     "build": "tsc -p tsconfig.build.json",
