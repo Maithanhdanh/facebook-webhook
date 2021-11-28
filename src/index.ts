@@ -3,7 +3,7 @@ const sourcePath = process.env.NODE_ENV === 'development' ? 'src' : 'build';
 moduleAlias.addAliases({
   '@server': sourcePath,
   '@config': `${sourcePath}/config`,
-  '@domain': `${sourcePath}/domain`,
+  '@controller': `${sourcePath}/controller`,
 });
 
 import { createServer } from '@config/express';

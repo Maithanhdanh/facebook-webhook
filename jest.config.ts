@@ -25,6 +25,7 @@ export default {
     '@server(.*)$': `${rootDirectory}/src$1`,
     '@config(.*)$': `${rootDirectory}/src/config$1`,
     '@tests(.*)$': `${rootDirectory}/__tests__$1`,
+    '@controller(.*)$': `${rootDirectory}/src/controller$1`,
   },
   reporters: [
     'default',

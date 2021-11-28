@@ -1,1 +1,4 @@
 GET http://localhost:5000/health
+
+###
+GET http://localhost:5000/webhook?hub.verify_token=virtualAssistant&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe
