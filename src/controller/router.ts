@@ -4,16 +4,19 @@ const router = Router();
 
 router.post('/webhook', (req, res) => {
   // Parse the request body from the POST
-  let body = req.body;
+  const body = req.body;
 
   // Check the webhook event is from a Page subscription
   if (body.object === 'page') {
     // Iterate over each entry - there may be multiple if batched
     body.entry.forEach(function (entry) {
-      // Get the webhook event. entry.messaging is an array, but
-      // will only ever contain one event, so we get index 0
-      let webhook_event = entry.messaging[0];
+      // Gets the body of the webhook event
+      const webhook_event = entry.messaging[0];
       console.log(webhook_event);
+
+      // Get the sender PSID
+      const sender_psid = webhook_event.sender.id;
+      console.log('Sender PSID: ' + sender_psid);
     });
 
     // Return a '200 OK' response to all events
@@ -26,12 +29,12 @@ router.post('/webhook', (req, res) => {
 
 router.get('/webhook', (req, res) => {
   // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+  const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
   // Parse the query params
-  let mode = req.query['hub.mode'];
-  let token = req.query['hub.verify_token'];
-  let challenge = req.query['hub.challenge'];
+  const mode = req.query['hub.mode'];
+  const token = req.query['hub.verify_token'];
+  const challenge = req.query['hub.challenge'];
 
   // Checks if a token and mode is in the query string of the request
   if (mode && token) {
