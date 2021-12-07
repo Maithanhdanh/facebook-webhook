@@ -42,7 +42,7 @@ bot.hear('image', (_payload, chat) => {
 });
 
 bot.hear('ask me something', (_payload, chat) => {
- 
+
   const askName = (convo) => {
       convo.ask(`What's your name?`, (payload, convo) => {
           const text = payload.message.text;
@@ -72,4 +72,4 @@ bot.hear('ask me something', (_payload, chat) => {
 });
 
 
-bot.start();
+bot.start(process.env.PORT);
