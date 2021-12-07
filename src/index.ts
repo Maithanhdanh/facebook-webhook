@@ -1,4 +1,6 @@
 import BootBot from 'bootbot';
+import {resolveIssueHandler} from "@server/application";
+import {persistent_menu} from "@server/buttons";
 
 const bot = new BootBot({
   accessToken: process.env.PAGE_ACCESS_TOKEN,
@@ -6,83 +8,13 @@ const bot = new BootBot({
   appSecret: process.env.APP_SECRET,
 });
 
-const buttons = {
-  persistent_menu: [
-    {
-      locale: "default",
-      composer_input_disabled: false,
-      call_to_actions: [
-        {
-          type: "postback",
-          title: "Talk to me",
-          payload: "BOOTBOT_GET_STARTED"
-        },
-        {
-          type: "postback",
-          title: "Help Loan",
-          payload: "PERSISTENT_MENU_HELP"
-        },
-        {
-          type: "web_url",
-          title: "Support website",
-          url: "https://www.google.com/",
-          webview_height_ratio: "full"
-        }
-      ]
-    }
-  ]
-}
-
 bot.setGetStartedButton((_, chat) => {
   chat.say('Hello, How can I help you?');
 })
 
 bot.setGreetingText("Hello, I'm Lisa. I'm a virtual assistant");
 
-bot.setPersistentMenu(buttons.persistent_menu);
-
-const resolveIssueHandler = (chat) => {
-  const question = {
-    text: `What's your Mod Type?`,
-    quickReplies:[
-      {
-        content_type:"text",
-        title:"Fix",
-        image_url:"https://cdn4.iconfinder.com/data/icons/loan-debt/64/Fixed_Interest_Rate-512.png"
-      },
-      {
-        content_type:"text",
-        title:"Refix",
-        image_url:"https://cdn-icons-png.flaticon.com/512/1900/1900231.png"
-      },
-      {
-        content_type:"text",
-        title:"Split",
-        image_url:"https://img.icons8.com/ios/452/split-money.png"
-      }
-    ]
-  }
-  const askModType = (convo) => {
-    convo.ask(question, (payload, convo) => {
-      const text = payload.message.text;
-      convo.set('modType', text);
-      if (text == 'Fix' || text == 'Refix') {
-        convo.say(`There are no eligible account for ${text} Loan`);
-      } else if (text == 'Split') {
-        convo.say(`Let me check your account`).then(() => splitModType(convo));
-      } else {
-        convo.end();
-      }
-    });
-  };
-  const splitModType = (convo) => {
-    convo.say(`In develop`);
-    convo.end();
-  }
-  chat.conversation((convo) => {
-    askModType(convo);
-  });
-}
+bot.setPersistentMenu(persistent_menu);
 
 bot.on('postback:PERSISTENT_MENU_HELP', (_payload, chat) => {
   resolveIssueHandler(chat);
