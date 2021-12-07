@@ -9,67 +9,159 @@ const bot = new BootBot({
 bot.hear(['hello', 'hi', /hey( there)?/i], (_payload, chat) => {
   // Send a text message followed by another text message that contains a typing indicator
   chat.say('Hello, human friend!').then(() => {
-      chat.say('How are you today?', { typing: true });
+    chat.say('How are you today?', { typing: true });
   });
 });
 
 bot.hear(['food', 'hungry'], (_payload, chat) => {
   // Send a text message with quick replies
   chat.say({
-      text: 'What do you want to eat today?',
-      quickReplies: ['Mexican', 'Italian', 'American', 'Argentine']
+    text: 'What do you want to eat today?',
+    quickReplies: ['Mexican', 'Italian', 'American', 'Argentine'],
   });
 });
 
 bot.hear(['help'], (_payload, chat) => {
   // Send a text message with buttons
   chat.say({
-      text: 'What do you need help with?',
-      buttons: [
-          { type: 'postback', title: 'Settings', payload: 'HELP_SETTINGS' },
-          { type: 'postback', title: 'FAQ', payload: 'HELP_FAQ' },
-          { type: 'postback', title: 'Talk to a human', payload: 'HELP_HUMAN' }
-      ]
+    text: 'What do you need help with?',
+    buttons: [
+      { type: 'postback', title: 'Settings', payload: 'HELP_SETTINGS' },
+      { type: 'postback', title: 'FAQ', payload: 'HELP_FAQ' },
+      { type: 'postback', title: 'Talk to a human', payload: 'HELP_HUMAN' },
+    ],
   });
 });
 
 bot.hear('image', (_payload, chat) => {
   // Send an attachment
   chat.say({
-      attachment: 'image',
-      url: 'http://example.com/image.png'
+    attachment: 'image',
+    url: 'http://example.com/image.png',
   });
 });
 
 bot.hear('ask me something', (_payload, chat) => {
-
   const askName = (convo) => {
-      convo.ask(`What's your name?`, (payload, convo) => {
-          const text = payload.message.text;
-          convo.set('name', text);
-          convo.say(`Oh, your name is ${text}`).then(() => askFavoriteFood(convo));
-      });
+    convo.ask(`What's your name?`, (payload, convo) => {
+      const text = payload.message.text;
+      convo.set('name', text);
+      convo.say(`Oh, your name is ${text}`).then(() => askFavoriteFood(convo));
+    });
   };
 
   const askFavoriteFood = (convo) => {
-      convo.ask(`What's your favorite food?`, (payload, convo) => {
-          const text = payload.message.text;
-          convo.set('food', text);
-          convo.say(`Got it, your favorite food is ${text}`).then(() => sendSummary(convo));
-      });
+    convo.ask(`What's your favorite food?`, (payload, convo) => {
+      const text = payload.message.text;
+      convo.set('food', text);
+      convo
+        .say(`Got it, your favorite food is ${text}`)
+        .then(() => sendSummary(convo));
+    });
   };
 
   const sendSummary = (convo) => {
-      convo.say(`Ok, here's what you told me about you:
+    convo.say(`Ok, here's what you told me about you:
         - Name: ${convo.get('name')}
         - Favorite Food: ${convo.get('food')}`);
     convo.end();
   };
 
   chat.conversation((convo) => {
-      askName(convo);
+    askName(convo);
   });
 });
 
+bot.hear('term', (_payload, chat) => {
+  // Send an attachment
+  chat.say({
+    text: 'below is your available terms?',
+    buttons: [
+      {
+        type: 'postback',
+        title: '1 Year',
+        payload: 'Interest rate: 2.19% p.a.',
+      },
+      {
+        type: 'postback',
+        title: '2 Years',
+        payload: 'Interest rate: 2.00% p.a.',
+      },
+      {
+        type: 'postback',
+        title: '3 Years',
+        payload: 'Interest rate: 2.00% p.a.',
+      },
+      {
+        type: 'postback',
+        title: '4 Years',
+        payload: 'Interest rate: 3.39% p.a.',
+      },
+      {
+        type: 'postback',
+        title: '5 Years',
+        payload: 'Interest rate: 2.79% p.a.',
+      },
+    ],
+  });
+});
+
+bot.hear('repayment-change', (_payload, chat) => {
+  // Send an attachment
+  chat.sendTemplate({
+    type: 'template',
+    payload: {
+      template_type: 'receipt',
+      recipient_name: 'Stephane Crozatier',
+      order_number: '12345678902',
+      currency: 'USD',
+      payment_method: 'Visa 2345',
+      order_url: 'http://originalcoastclothing.com/order?order_id=123456',
+      timestamp: '1428444852',
+      address: {
+        street_1: '1 Hacker Way',
+        street_2: '',
+        city: 'Menlo Park',
+        postal_code: '94025',
+        state: 'CA',
+        country: 'US',
+      },
+      summary: {
+        subtotal: 75.0,
+        shipping_cost: 4.95,
+        total_tax: 6.19,
+        total_cost: 56.14,
+      },
+      adjustments: [
+        {
+          name: 'New Customer Discount',
+          amount: 20,
+        },
+        {
+          name: '$10 Off Coupon',
+          amount: 10,
+        },
+      ],
+      elements: [
+        {
+          title: 'Classic White T-Shirt',
+          subtitle: '100% Soft and Luxurious Cotton',
+          quantity: 2,
+          price: 50,
+          currency: 'USD',
+          image_url: 'http://originalcoastclothing.com/img/whiteshirt.png',
+        },
+        {
+          title: 'Classic Gray T-Shirt',
+          subtitle: '100% Soft and Luxurious Cotton',
+          quantity: 1,
+          price: 25,
+          currency: 'USD',
+          image_url: 'http://originalcoastclothing.com/img/grayshirt.png',
+        },
+      ],
+    },
+  });
+});
 
 bot.start(process.env.PORT);
