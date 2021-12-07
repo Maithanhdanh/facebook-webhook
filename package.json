@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "hackathon",
   "engines": {
-    "node": ">= 14.16 <15"
+    "node": ">= 14.16 <17"
   },
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register -r dotenv/config src/index",
