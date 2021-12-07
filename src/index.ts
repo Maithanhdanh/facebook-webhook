@@ -14,8 +14,6 @@ bot.setGetStartedButton((_, chat) => {
 
 bot.setGreetingText("Hello, I'm Lisa. I'm a virtual assistant");
 
-bot.setPersistentMenu(persistent_menu);
-
 bot.on('postback:PERSISTENT_MENU_HELP', (_payload, chat) => {
   resolveIssueHandler(chat);
 });
