@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'Messenger'));
+
+    window.extAsyncInit = function() {
+        // the Messenger Extensions JS SDK is done loading
+        MessengerExtensions.requestCloseBrowser(function success() {
+            // webview closed
+            console.log('closed')
+        }, function error(err) {
+            // an error occurred
+            console.log(err)
+        });
+    };
+</script>
+<body>
+<h1> Detail Loan 2</h1>
+<p>- Current balance: +200,000,000</p>
+<p>- BSB: 123465</p>
+<p>- AccNo: *****9876</p>
+<p>- Name: Peter</p>
+<p>- Phone: ********89</p>
+</body>
+</html>

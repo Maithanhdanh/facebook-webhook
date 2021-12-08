@@ -56,6 +56,7 @@ export const resolveIssueHandler = (chat) => {
   });
 
   const getLoanAccount = (convo) => {
+    const current = new Date().getTime();
     const question = {
       cards: [
         {
@@ -66,6 +67,13 @@ export const resolveIssueHandler = (chat) => {
               type: 'postback',
               title: 'Select home loan 1',
               payload: 'HL1',
+            },
+            {
+              type: 'web_url',
+              title: 'View detail',
+              url: `https://a724-2405-4800-5716-f34b-d4cb-3b85-f097-4977.ngrok.io/1/${current}`,
+              webview_height_ratio: 'compact',
+              messenger_extensions: true
             },
           ],
         },
@@ -78,18 +86,30 @@ export const resolveIssueHandler = (chat) => {
               title: 'Select home loan 2',
               payload: 'HL2',
             },
+            {
+              type: 'web_url',
+              title: 'View detail',
+              url: `https://a724-2405-4800-5716-f34b-d4cb-3b85-f097-4977.ngrok.io/2/${current}`,
+              webview_height_ratio: 'compact',
+              messenger_extensions: true
+            },
           ],
         },
       ],
     };
     const answer = (payload, convo) => {
       const selected = payload.postback;
-      convo.say(`You choose ${selected.payload == '1Y' ? 'Home Loan 1' : 'Home Loan 2'}, Let me check`).then(() => {
-        setTimeout(() => {
-          convo.say('There are no eligible account for Loan');
-          convo.end();
-        }, 2000);
-      })
+      if (!selected || !['HL1', 'HL2'].includes(selected.payload)) {
+        convo.say('End process, Please try again');
+        convo.end();
+      } else {
+        convo.say(`You choose ${selected.payload == 'HL1' ? 'Home Loan 1' : 'Home Loan 2'}, Let me check`).then(() => {
+          setTimeout(() => {
+            convo.say('There are no eligible account for Loan');
+            convo.end();
+          }, 2000);
+        })
+      }
     };
     convo.ask(question, answer);
   }
