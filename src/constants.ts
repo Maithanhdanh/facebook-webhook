@@ -22,7 +22,8 @@ export enum ButtonPayload {
   ELIGIBLE_ACCOUNTS = 'ELIGIBLE_ACCOUNTS',
   VIEW_ACCOUNT_DETAIL = 'VIEW_ACCOUNT_DETAIL.',
   CONFIRM_PROCESSING_ACCOUNT = 'CONFIRM_PROCESSING_ACCOUNT',
-  TALK_TO_BANKER = 'TALK_TO_BANKER'
+  TALK_TO_BANKER = 'TALK_TO_BANKER',
+  SELECT_TERM = 'SELECT_TERM',
 }
 
 export enum loanModOptions {
@@ -30,7 +31,7 @@ export enum loanModOptions {
   REFIX = 'Refix my interest rate',
   SPLIT = 'Split my home loan',
   YES = 'Yes',
-  NO = `No, I want to pay more, I'm rich`
+  NO = `No, I want to pay more, I'm rich`,
 }
 
 export enum LoanAmounts {

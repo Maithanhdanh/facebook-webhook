@@ -93,7 +93,7 @@ bot.on(
 
 bot.hear('term', (_payload, chat) => getTerm(_payload, chat));
 
-bot.hear(['1Y', '2Y', '3Y'], (_payload, chat) => getSummary(_payload, chat));
+bot.on (getPostbackPayload(ButtonPayload.SELECT_TERM), (_payload, chat) => getSummary(_payload, chat));
 
 bot.hear('CANCEL_LOAN', (_payload, chat) => cancelLoan(_payload, chat));
 
