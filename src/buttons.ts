@@ -34,7 +34,7 @@ export class ButtonBuilder {
 
 export const getViewAccountDetailsButton = (accountId: string): MessengerButton => {
   const payload = ButtonPayload.VIEW_ACCOUNT_DETAIL + accountId;
-  return new ButtonBuilder().withPayload(payload).withTitle('View Details' + accountId).build();
+  return new ButtonBuilder().withPayload(payload).withTitle('View Details').build();
 };
 
 export const confirmAccountButtons = [
