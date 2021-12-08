@@ -122,22 +122,39 @@ bot.hear('ask me something', (_payload, chat) => {
 bot.hear('term', (_payload, chat) => {
   // Send an attachment
   chat.say({
-    text: 'Below is your available terms?',
-    buttons: [
+    cards: [
       {
-        type: 'postback',
-        title: '1 Year - Interest_rate: 2.19% p.a.',
-        payload: '1Y',
+        title: '1 Year',
+        subtitle: 'Interest rate: 2.19% p.a.',
+        buttons: [
+          {
+            type: 'postback',
+            title: 'Select',
+            payload: '1Y',
+          },
+        ],
       },
       {
-        type: 'postback',
-        title: '2 Years - Interest rate: 2.00% p.a.',
-        payload: '2Y',
+        title: '2 Years',
+        subtitle: 'Interest rate: 2.00% p.a.',
+        buttons: [
+          {
+            type: 'postback',
+            title: 'Select',
+            payload: '2Y',
+          },
+        ],
       },
       {
-        type: 'postback',
-        title: '3 Years - Interest rate: 2.00% p.a.',
-        payload: '3Y',
+        title: '3 Years',
+        subtitle: 'Interest rate: 2.00% p.a.',
+        buttons: [
+          {
+            type: 'postback',
+            title: 'Select',
+            payload: '3Y',
+          },
+        ],
       },
     ],
   });
