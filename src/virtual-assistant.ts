@@ -45,11 +45,12 @@ export const viewAccountDetails = (_payload, chat) => {
 
   chat.say('Ok, here your Loan account details', options);
 
-  chat.sendListTemplate([{
-    'title': 'Account Name',
-    'image_url': 'https://d2z4fd79oscvvx.cloudfront.net/0023640_black_forest_cake.jpeg',
-    'subtitle': accountDetails.account,
-  },
+  chat.sendGenericTemplate([
+    {
+      'title': 'Account Name',
+      'image_url': 'https://d2z4fd79oscvvx.cloudfront.net/0023640_black_forest_cake.jpeg',
+      'subtitle': accountDetails.account,
+    },
     {
       'title': 'Parties on Loan',
       'image_url': 'http://trivandrumcakehouse.com/wp-content/uploads/2015/10/cake-white-forest.jpg',
