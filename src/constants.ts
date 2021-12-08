@@ -32,3 +32,10 @@ export enum loanModOptions {
   YES = 'Yes',
   NO = `No, I want to pay more, I'm rich`
 }
+
+export enum LoanAmounts {
+  TWENTY_THOUSAND = '$20,000',
+  FIFTY_THOUSAND = '$50,000',
+  ONE_HUNDRED_THOUSAND = '$100,000',
+  ONE_HUNDRED_FIFTY_THOUSAND = '$100,000',
+}
