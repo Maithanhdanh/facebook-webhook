@@ -1,7 +1,7 @@
 import { ButtonPayload } from './constants';
 
 export interface MessengerButton {
-  type?: 'postback';
+  type: string;
   payload: string;
   title: string;
 }
@@ -11,6 +11,7 @@ export class ButtonBuilder {
 
   constructor() {
     this._button = {
+      type: 'postback',
       payload: '',
       title: '',
     };
@@ -63,7 +64,7 @@ export const persistent_menu =
           url: 'https://www.google.com/',
           webview_height_ratio: 'full',
         },
-        new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build()
+        new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build(),
       ],
     },
   ];
