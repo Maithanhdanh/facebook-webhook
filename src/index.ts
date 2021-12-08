@@ -249,4 +249,8 @@ bot.on(getPostbackPayload(ButtonPayload.TALK_TO_BANKER), (_payload, chat) => {
   chat.say('In order to help serve you better, Lisa will turn to customer service staff to assist you! Thank you so much!');
 });
 
+bot.on(getPostbackPayload(ButtonPayload.CONFIRM_PROCESSING_ACCOUNT), (_payload, chat) => {
+  chat.say('This feature is in dev! Thank you so much!');
+});
+
 bot.start(process.env.PORT);
