@@ -103,7 +103,6 @@ export const inputLoanHandler = (chat) => {
         },
       ],
     });
-    convo.say('Please type term');
     convo.end();
   };
 
