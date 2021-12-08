@@ -39,21 +39,38 @@ export const viewAccountDetails = (_payload, chat) => {
 
   const accountDetails = ACCOUNT_DETAILS[accountId];
 
-  const sendAccountDetails = (convo) => {
-    convo.say(`Ok, here your Loan account details:
-        - Account Name: ${accountDetails.account}
-        - Parties on Loan: ${accountDetails.parties}
-        - Current balance: ${accountDetails.currentBalance}
-        - Current interest rate: ${accountDetails.interestRate}
-        - Loan end date: ${accountDetails.endDate}`,
-    ).then(() => askConfirmAccount(convo));
+  const options = {
+    typing: true,
   };
 
-  const askConfirmAccount = (convo) => {
-    convo.sendButtonTemplate(`Please confirm these information about Loan account`, confirmAccountButtons);
-  };
+  chat.say('Ok, here your Loan account details', options);
 
-  chat.conversation((convo) => {
-    sendAccountDetails(convo);
-  });
+  chat.sendListTemplate([{
+    'title': 'Account Name',
+    'image_url': 'https://d2z4fd79oscvvx.cloudfront.net/0023640_black_forest_cake.jpeg',
+    'subtitle': accountDetails.account,
+  },
+    {
+      'title': 'Parties on Loan',
+      'image_url': 'http://trivandrumcakehouse.com/wp-content/uploads/2015/10/cake-white-forest.jpg',
+      'subtitle': accountDetails.parties,
+    },
+    {
+      'title': 'Current balance',
+      'image_url': 'http://img.taste.com.au/NKPhrv0q/taste/2016/11/foolproof-sponge-102144-1.jpeg',
+      'subtitle': accountDetails.currentBalance,
+    },
+    {
+      'title': 'Current interest rate',
+      'image_url': 'http://www.eatlivetravelwrite.com/wp-content/uploads/2016/01/Homemade-frog-cake-on-eatlivetravelwrite.com_.jpg',
+      'subtitle': accountDetails.interestRate,
+    },
+    {
+      'title': 'Current interest rate',
+      'image_url': 'http://www.eatlivetravelwrite.com/wp-content/uploads/2016/01/Homemade-frog-cake-on-eatlivetravelwrite.com_.jpg',
+      'subtitle': accountDetails.interestRate,
+    },
+  ], [], options);
+
+  chat.sendButtonTemplate(`Please confirm these information about Loan account`, confirmAccountButtons);
 };
