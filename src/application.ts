@@ -80,16 +80,15 @@ export const inputLoanHandler = (chat) => {
       style: 'currency',
       currency: 'USD',
     });
-    const amount = new Number(text.substring(1));
     convo.say(receiptTemplate);
     convo.say({
       cards: [
         {
           title: 'Variable home loan account (existing)',
-          subtitle: `Loan amount: ${formatter.format(amount as number)}`,
+          subtitle: `Loan amount: ${text}`,
           buttons: [
             {
-              type: 'postback',
+              type: 'selectTerm',
               title: 'Select',
               payload: 'variable',
             },
@@ -100,7 +99,7 @@ export const inputLoanHandler = (chat) => {
           subtitle: 'Loan amount: +$120,000.00',
           buttons: [
             {
-              type: 'postback',
+              type: 'selectTerm',
               title: 'Select',
               payload: 'fixed',
             },
@@ -108,6 +107,7 @@ export const inputLoanHandler = (chat) => {
         },
       ],
     });
+    convo.say('Please type term');
     convo.end();
   };
 
