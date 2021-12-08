@@ -1,6 +1,6 @@
 import * as moduleAlias from 'module-alias';
 import BootBot from 'bootbot';
-import { resolveIssueHandler } from '@server/application';
+import { inputLoanHandler, resolveIssueHandler } from '@server/application';
 import { persistent_menu } from '@server/buttons';
 import { ACCOUNT_ID_1, ACCOUNT_ID_2, ButtonPayload } from '@server/constants';
 import { showEligibleAccounts, viewAccountDetails } from '@server/virtual-assistant';
@@ -12,6 +12,7 @@ moduleAlias.addAliases({
   '@config': `${sourcePath}/config`,
   '@controller': `${sourcePath}/controller`,
 });
+
 
 const bot = new BootBot({
   accessToken: process.env.PAGE_ACCESS_TOKEN,
@@ -119,6 +120,12 @@ bot.hear('ask me something', (_payload, chat) => {
     askName(convo);
   });
 });
+
+bot.hear('input loan',
+  (_payload, chat) => {
+    inputLoanHandler(chat);
+  },
+);
 
 bot.hear('term', (_payload, chat) => {
   // Send an attachment
