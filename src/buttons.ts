@@ -1,4 +1,4 @@
-import { ACCOUNT_ID_1, ButtonPayload } from './constants';
+import { ButtonPayload } from './constants';
 
 export interface MessengerButton {
   type: string;
@@ -43,8 +43,8 @@ export const getViewAccountDetailsButton = (accountId: string): MessengerButton 
 };
 
 export const confirmAccountButtons = [
-  new ButtonBuilder().withPayload(ButtonPayload.CONFIRM_PROCESSING_ACCOUNT).withTitle('Yes, make changes to my loan').build(),
-  new ButtonBuilder().withPayload(ButtonPayload.TALK_TO_BANKER).withTitle('No, talk to banker').build(),
+  new ButtonBuilder().withPayload(ButtonPayload.CONFIRM_PROCESSING_ACCOUNT).withTitle('Yes, modify loan').build(),
+  new ButtonBuilder().withPayload(ButtonPayload.TALK_TO_BANKER).withTitle('Talk to banker').build(),
 ];
 
 export const persistent_menu =
@@ -70,7 +70,6 @@ export const persistent_menu =
           webview_height_ratio: 'full',
         },
         new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build(),
-        getViewAccountDetailsButton(ACCOUNT_ID_1)
       ],
     },
   ];

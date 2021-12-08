@@ -29,13 +29,11 @@ export const showEligibleAccounts = (_payload, chat) => {
     typing: true,
   };
 
-  chat.conversation((convo) => {
-    convo.sendGenericTemplate(eligibleAccounts, options);
-  });
+  chat.sendGenericTemplate(eligibleAccounts, options);
 };
 
 export const viewAccountDetails = (_payload, chat) => {
-  const accountId = _payload.postback.payload.split('_', 4)[3];
+  const accountId = _payload.postback.payload.split('.', 2)[1];
 
   console.log({ accountId });
 
