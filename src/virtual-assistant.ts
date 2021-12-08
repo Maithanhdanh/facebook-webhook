@@ -11,21 +11,15 @@ export const showEligibleAccounts = (_payload, chat) => {
 
   const eligibleAccounts = [{
     title: `Home loan 1`,
-    subtitle: `BSB: xxx-123 - AccountNo: xxxxxxx68`,
+    subtitle: `BSB: xxx-123 - AccountNo: xxxxxxx68 - Balance: +$100,000.00`,
     image_url: 'https://drive.google.com/file/d/16C2HNQuRVvUozcdK0dmrfZUjCCsVxAJN/view?usp=sharing',
-    default_action: {
-      viewAccount1DetailsButton,
-    },
     buttons: [
       viewAccount1DetailsButton,
     ],
   }, {
     title: `Home loan 2`,
-    subtitle: `BSB: xxx-456 - AccountNo: xxxxxxx69`,
+    subtitle: `BSB: xxx-456 - AccountNo: xxxxxxx69 - Balance: +$150,000.00`,
     image_url: 'https://drive.google.com/file/d/1vli0U2_kA2Pni-_bZ4oKzDXL3hQY8RUO/view?usp=sharing',
-    default_action: {
-      viewAccount2DetailsButton,
-    },
     buttons: [
       viewAccount2DetailsButton,
     ],
