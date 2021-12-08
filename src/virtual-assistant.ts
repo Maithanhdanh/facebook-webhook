@@ -67,6 +67,6 @@ export const viewAccountDetails = (_payload, chat) => {
         'image_url': 'https://2.pik.vn/2021282a709c-68fc-46b4-9ce8-0a0d0df7db1f.png',
         'subtitle': accountDetails.endDate,
       },
-    ], { ...options, imageAspectRatio: 'square' })
+    ], options)
       .then(() => chat.sendButtonTemplate(`Please confirm these information about Loan account`, confirmAccountButtons)));
 };
