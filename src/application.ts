@@ -76,10 +76,10 @@ export const inputLoanHandler = (chat) => {
 
   const detailsLoan = (convo, text) => {
     const receiptTemplate = `Loan amount is: ${text}`;
-    const formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    });
+    // const formatter = new Intl.NumberFormat('en-US', {
+    //   style: 'currency',
+    //   currency: 'USD',
+    // });
     convo.say(receiptTemplate);
     convo.say({
       cards: [
