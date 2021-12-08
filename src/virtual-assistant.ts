@@ -35,7 +35,7 @@ export const showEligibleAccounts = (_payload, chat) => {
 };
 
 export const viewAccountDetails = (_payload, chat) => {
-  const accountId = _payload.postback.payload.split(':', 2)[1];
+  const accountId = _payload.postback.payload.split('.', 2)[1];
 
   const accountDetails = ACCOUNT_DETAILS[accountId];
 
