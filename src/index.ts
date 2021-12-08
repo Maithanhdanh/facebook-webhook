@@ -8,7 +8,13 @@ import {
   viewAccountDetails,
 } from '@server/virtual-assistant';
 import { getPostbackPayload } from '@server/utils';
-import { cancelLoan, getSummary, getTerm } from '@server/selectTerm';
+import {
+  acceptLoan,
+  cancelLoan,
+  getSummary,
+  getTerm,
+  viewTerms,
+} from '@server/selectTerm';
 
 const sourcePath = process.env.NODE_ENV === 'development' ? 'src' : 'build';
 moduleAlias.addAliases({
@@ -93,8 +99,20 @@ bot.on(
 
 bot.hear('term', (_payload, chat) => getTerm(_payload, chat));
 
-bot.on (getPostbackPayload(ButtonPayload.SELECT_TERM), (_payload, chat) => getSummary(_payload, chat));
+bot.on(getPostbackPayload(ButtonPayload.SELECT_TERM), (_payload, chat) =>
+  getSummary(_payload, chat),
+);
 
-bot.hear('CANCEL_LOAN', (_payload, chat) => cancelLoan(_payload, chat));
+bot.on(getPostbackPayload(ButtonPayload.VIEW_TERM), (_payload, chat) =>
+  viewTerms(_payload, chat),
+);
+
+bot.on(getPostbackPayload(ButtonPayload.ACCEPT_TERM), (_payload, chat) =>
+  acceptLoan(_payload, chat),
+);
+
+bot.on(getPostbackPayload(ButtonPayload.CANCEL_TERM), (_payload, chat) =>
+  cancelLoan(_payload, chat),
+);
 
 bot.start(process.env.PORT);

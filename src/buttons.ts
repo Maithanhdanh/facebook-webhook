@@ -58,6 +58,21 @@ export const confirmAccountButtons = [
     .build(),
 ];
 
+export const confirmLoanButtons = [
+  new ButtonBuilder()
+    .withPayload(ButtonPayload.VIEW_TERM)
+    .withTitle('View selected terms')
+    .build(),
+  new ButtonBuilder()
+    .withPayload(ButtonPayload.ACCEPT_TERM)
+    .withTitle('Agree and submit')
+    .build(),
+  new ButtonBuilder()
+    .withPayload(ButtonPayload.CANCEL_TERM)
+    .withTitle('not agree and cancel')
+    .build(),
+];
+
 export const selectTermButton = new ButtonBuilder()
   .withPayload(ButtonPayload.SELECT_TERM)
   .withTitle('Select Term')

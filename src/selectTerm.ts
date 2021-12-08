@@ -1,4 +1,4 @@
-import { selectTermButton } from './buttons';
+import { confirmLoanButtons, selectTermButton } from './buttons';
 
 const options = {
   typing: true,
@@ -74,31 +74,23 @@ const getSummary = (_payload, chat) => {
     )
     .then(() =>
       chat.sendButtonTemplate(
-        `Are you ready to go`,
-        [
-          {
-            type: 'postback',
-            title: 'View terms of my home loan',
-            payload: 'VIEW_TERM',
-          },
-          {
-            type: 'postback',
-            title: 'Agree and submit',
-            payload: 'SUBMIT',
-          },
-          {
-            type: 'postback',
-            title: 'not agree and cancel',
-            payload: 'CANCEL_LOAN',
-          },
-        ],
+        `Are you ready to go?`,
+        confirmLoanButtons,
         options,
       ),
     );
+};
+
+const viewTerms = (_payload, chat) => {
+  chat.say(`selected terms!`, options);
+};
+
+const acceptLoan = (_payload, chat) => {
+  chat.say(`Yeah!`, options);
 };
 
 const cancelLoan = (_payload, chat) => {
   chat.say(`Bye, Bye!`, options);
 };
 
-export { cancelLoan, getSummary, getTerm };
+export { cancelLoan, getSummary, getTerm, viewTerms, acceptLoan };
