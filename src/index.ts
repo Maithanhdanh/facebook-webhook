@@ -1,17 +1,17 @@
 import * as moduleAlias from 'module-alias';
-const sourcePath = process.env.NODE_ENV === 'development' ? 'src' : 'build';
-moduleAlias.addAliases({
-  '@server': sourcePath,
-  '@config': `${sourcePath}/config`,
-  '@controller': `${sourcePath}/controller`,
-});
-
 import BootBot from 'bootbot';
 import { resolveIssueHandler } from '@server/application';
 import { ButtonBuilder, persistent_menu } from '@server/buttons';
 import { ACCOUNT_ID_1, ACCOUNT_ID_2, ButtonPayload } from '@server/constants';
 import { showEligibleAccounts, viewAccountDetails } from '@server/virtual-assistant';
 import { getPostbackPayload } from '@server/utils';
+
+const sourcePath = process.env.NODE_ENV === 'development' ? 'src' : 'build';
+moduleAlias.addAliases({
+  '@server': sourcePath,
+  '@config': `${sourcePath}/config`,
+  '@controller': `${sourcePath}/controller`,
+});
 
 const bot = new BootBot({
   accessToken: process.env.PAGE_ACCESS_TOKEN,
