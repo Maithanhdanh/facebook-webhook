@@ -41,7 +41,7 @@ export const resolveIssueHandler = (chat) => {
       } else if (text == loanModOptions.SPLIT) {
         convo.say(`Let me check your account`).then(() => splitModType(convo));
       } else if (text == loanModOptions.YES || text == loanModOptions.NO) {
-        convo.then(() => getLoanAccount(convo));
+        convo.say(`Please select an account which you want to change your home loan`).then(() => getLoanAccount(convo));
       } else {
         convo.end();
       }
@@ -56,51 +56,42 @@ export const resolveIssueHandler = (chat) => {
   });
 
   const getLoanAccount = (convo) => {
-    convo.say({
+    const question = {
       cards: [
         {
-          title: '1 Year',
-          image_url:
-            'https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-colorful-home-loan-icon--coin-symbol-with-house-sign-png-image_1657194.jpg',
-          subtitle: 'Interest rate: 2.19% p.a.',
+          title: 'Home loan 1:',
+          subtitle: 'Current balance: +10,000,000\nBSB: 123465  AccNo: *****4688',
           buttons: [
             {
               type: 'postback',
-              title: 'Select',
-              payload: '1Y',
+              title: 'Select home loan 1',
+              payload: 'HL1',
             },
           ],
         },
         {
-          title: '2 Years',
-          image_url:
-            'https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-colorful-home-loan-icon--coin-symbol-with-house-sign-png-image_1657194.jpg',
-          subtitle: 'Interest rate: 2.00% p.a.',
+          title: 'Home loan 2:',
+          subtitle: 'Current balance: +200,000,000\nBSB: 123465  AccNo: *****9876',
           buttons: [
             {
               type: 'postback',
-              title: 'Select',
-              payload: '2Y',
-            },
-          ],
-        },
-        {
-          title: '3 Years',
-          image_url:
-            'https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-colorful-home-loan-icon--coin-symbol-with-house-sign-png-image_1657194.jpg',
-          subtitle: 'Interest rate: 2.00% p.a.',
-          buttons: [
-            {
-              type: 'postback',
-              title: 'Select',
-              payload: '3Y',
+              title: 'Select home loan 2',
+              payload: 'HL2',
             },
           ],
         },
       ],
-    });
-
-    convo.end();
+    };
+    const answer = (payload, convo) => {
+      const selected = payload.postback;
+      convo.say(`You choose ${selected.payload == '1Y' ? 'Home Loan 1' : 'Home Loan 2'}, Let me check`).then(() => {
+        setTimeout(() => {
+          convo.say('There are no eligible account for Loan');
+          convo.end();
+        }, 2000);
+      })
+    };
+    convo.ask(question, answer);
   }
 }
 
