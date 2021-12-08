@@ -17,6 +17,11 @@ export class ButtonBuilder {
     };
   }
 
+  withType(type: string): ButtonBuilder {
+    this._button.type = type;
+    return this;
+  }
+
   withTitle(title: string): ButtonBuilder {
     this._button.title = title;
     return this;
