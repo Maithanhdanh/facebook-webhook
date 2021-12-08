@@ -1,8 +1,9 @@
 import BootBot from 'bootbot';
 import { resolveIssueHandler } from '@server/application';
 import { ButtonBuilder, persistent_menu } from '@server/buttons';
-import { ButtonPayload } from '@server/constants';
+import { ACCOUNT_ID_1, ACCOUNT_ID_2, ButtonPayload } from '@server/constants';
 import { showEligibleAccounts, viewAccountDetails } from '@server/virtual-assistant';
+import { getPostbackPayload } from '@server/utils';
 
 const bot = new BootBot({
   accessToken: process.env.PAGE_ACCESS_TOKEN,
@@ -105,20 +106,31 @@ bot.hear('ask me something', (_payload, chat) => {
   });
 });
 
-bot.on('postback:' + ButtonPayload.ELIGIBLE_ACCOUNTS, (payload, chat) => {
+bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS), (payload, chat) => {
   showEligibleAccounts(payload, chat);
 });
 
-bot.on('postback', (payload, chat) => {
-  const regViewAccountButton = /VIEW_ACCOUNT_DETAIL:(\d+)/i;
-  const buttonPayload = payload.postback.payload;
-  const match = buttonPayload.match(regViewAccountButton);
+// bot.on('postback', (payload, chat) => {
+//   const regViewAccountButton = /VIEW_ACCOUNT_DETAIL:(\d+)/i;
+//   const buttonPayload = payload.postback.payload;
+//   const match = buttonPayload.match(regViewAccountButton);
+//
+//   if (match) {
+//     const buttonId = match[1];
+//     viewAccountDetails(payload, chat, buttonId);
+//   }
+// });
 
-  if (match) {
-    const buttonId = match[1];
-    viewAccountDetails(payload, chat, buttonId);
-  }
+bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS + ACCOUNT_ID_1), (payload, chat) => {
+  viewAccountDetails(payload, chat);
 });
 
+bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS + ACCOUNT_ID_2), (payload, chat) => {
+  viewAccountDetails(payload, chat);
+});
+
+bot.on(getPostbackPayload(ButtonPayload.TALK_TO_BANKER), (_payload, chat) => {
+  chat.say('In order to help serve you better, Lisa will turn to customer service staff to assist you! Thank you so much!');
+});
 
 bot.start(process.env.PORT);
