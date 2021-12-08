@@ -43,7 +43,9 @@ export const viewAccountDetails = (_payload, chat) => {
     typing: true,
   };
 
-  chat.say('Ok, here your Loan account details', options).then(() => chat.sendListTemplate([{
+  chat.say('Ok, here your Loan account details', options);
+
+  chat.sendListTemplate([{
     'title': 'Account Name',
     'image_url': 'https://d2z4fd79oscvvx.cloudfront.net/0023640_black_forest_cake.jpeg',
     'subtitle': accountDetails.account,
@@ -68,7 +70,7 @@ export const viewAccountDetails = (_payload, chat) => {
       'image_url': 'http://www.eatlivetravelwrite.com/wp-content/uploads/2016/01/Homemade-frog-cake-on-eatlivetravelwrite.com_.jpg',
       'subtitle': accountDetails.interestRate,
     },
-  ], [], options));
+  ], [], options);
 
   chat.sendButtonTemplate(`Please confirm these information about Loan account`, confirmAccountButtons);
 };
