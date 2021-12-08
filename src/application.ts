@@ -41,7 +41,7 @@ export const resolveIssueHandler = (chat) => {
       } else if (text == loanModOptions.SPLIT) {
         convo.say(`Let me check your account`).then(() => splitModType(convo));
       } else if (text == loanModOptions.YES || text == loanModOptions.NO) {
-        convo.say(`Please select an account which you want to change your home loan`).then(() => getLoanAccount(convo));
+        convo.then(() => getLoanAccount(convo));
       } else {
         convo.end();
       }
@@ -56,7 +56,50 @@ export const resolveIssueHandler = (chat) => {
   });
 
   const getLoanAccount = (convo) => {
-    convo.say(`In develop`);
+    convo.say({
+      cards: [
+        {
+          title: '1 Year',
+          image_url:
+            'https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-colorful-home-loan-icon--coin-symbol-with-house-sign-png-image_1657194.jpg',
+          subtitle: 'Interest rate: 2.19% p.a.',
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Select',
+              payload: '1Y',
+            },
+          ],
+        },
+        {
+          title: '2 Years',
+          image_url:
+            'https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-colorful-home-loan-icon--coin-symbol-with-house-sign-png-image_1657194.jpg',
+          subtitle: 'Interest rate: 2.00% p.a.',
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Select',
+              payload: '2Y',
+            },
+          ],
+        },
+        {
+          title: '3 Years',
+          image_url:
+            'https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-colorful-home-loan-icon--coin-symbol-with-house-sign-png-image_1657194.jpg',
+          subtitle: 'Interest rate: 2.00% p.a.',
+          buttons: [
+            {
+              type: 'postback',
+              title: 'Select',
+              payload: '3Y',
+            },
+          ],
+        },
+      ],
+    });
+
     convo.end();
   }
 }
