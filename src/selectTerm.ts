@@ -72,25 +72,28 @@ const getSummary = (_payload, chat) => {
         options,
       ),
     )
-    .then(() => {
-      chat.sendGenericTemplate([
-        {
-          type: 'postback',
-          title: 'View terms of my home loan',
-          payload: 'VIEW_TERM',
-        },
-        {
-          type: 'postback',
-          title: 'Agree and submit',
-          payload: 'SUBMIT',
-        },
-        {
-          type: 'postback',
-          title: 'not agree and cancel',
-          payload: 'CANCEL_LOAN',
-        },
-      ]);
-    });
+    .then(() =>
+      chat.sendGenericTemplate(
+        [
+          {
+            type: 'postback',
+            title: 'View terms of my home loan',
+            payload: 'VIEW_TERM',
+          },
+          {
+            type: 'postback',
+            title: 'Agree and submit',
+            payload: 'SUBMIT',
+          },
+          {
+            type: 'postback',
+            title: 'not agree and cancel',
+            payload: 'CANCEL_LOAN',
+          },
+        ],
+        options,
+      ),
+    );
 };
 
 const cancelLoan = (_payload, chat) => {
