@@ -14,14 +14,14 @@ export const showEligibleAccounts = (_payload, chat) => {
     subtitle: `BSB: xxx-123 - AccountNo: xxxxxxx68 - Balance: +$100,000.00`,
     image_url: 'https://3.pik.vn/2021fe85cdf1-792a-4dae-9317-1636a4424ef7.png',
     buttons: [
-      viewAccount1DetailsButton
+      viewAccount1DetailsButton,
     ],
   }, {
     title: `Home loan 2`,
     subtitle: `BSB: xxx-456 - AccountNo: xxxxxxx69 - Balance: +$150,000.00`,
     image_url: 'https://3.pik.vn/20216a22d618-dbc3-4d92-b83e-53ce9855969f.png',
     buttons: [
-      viewAccount2DetailsButton
+      viewAccount2DetailsButton,
     ],
   }];
 
@@ -35,7 +35,9 @@ export const showEligibleAccounts = (_payload, chat) => {
 };
 
 export const viewAccountDetails = (_payload, chat) => {
-  const accountId = _payload.postback.payload.split('.', 2)[1];
+  const accountId = _payload.postback.payload.split('_', 4)[3];
+
+  console.log({ accountId });
 
   const accountDetails = ACCOUNT_DETAILS[accountId];
 
