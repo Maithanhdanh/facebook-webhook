@@ -49,6 +49,7 @@ export const viewAccountDetails = (_payload, chat, buttonId) => {
     convo.say(`Ok, here your Loan account details:
         - Account Name: ${accountDetails.account}
         - Parties on Loan: ${accountDetails.parties}
+        - Current balance: ${accountDetails.currentBalance}
         - Current interest rate: ${accountDetails.interestRate}
         - Loan end date: ${accountDetails.endDate}`,
     ).then(() => askConfirmAccount(convo));

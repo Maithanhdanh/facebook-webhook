@@ -5,12 +5,14 @@ export const ACCOUNT_DETAILS = {
   [ACCOUNT_ID_1]: {
     account: 'Home Loan 1',
     parties: 'Ronaldo, Messi',
+    currentBalance: '+$100,000.00',
     interestRate: '3.14',
     endDate: '31 Dec 2022',
   },
   [ACCOUNT_ID_2]: {
     account: 'Home Loan 2',
     parties: 'Angelina Jolie',
+    currentBalance: '+$150,000.00',
     interestRate: '4.44',
     endDate: '31 Dec 2022',
   },
