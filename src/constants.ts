@@ -24,3 +24,11 @@ export enum ButtonPayload {
   CONFIRM_PROCESSING_ACCOUNT = 'CONFIRM_PROCESSING_ACCOUNT',
   TALK_TO_BANKER = 'TALK_TO_BANKER'
 }
+
+export enum loanModOptions {
+  FIX = 'Fix my interest rate',
+  REFIX = 'Refix my interest rate',
+  SPLIT = 'Split my home loan',
+  YES = 'Yes',
+  NO = `No, I want to pay more, I'm rich`
+}
