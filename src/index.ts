@@ -237,11 +237,11 @@ bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS), (payload, chat) => {
 //   }
 // });
 
-bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS + ACCOUNT_ID_1), (payload, chat) => {
+bot.on(getPostbackPayload(ButtonPayload.VIEW_ACCOUNT_DETAIL + ACCOUNT_ID_1), (payload, chat) => {
   viewAccountDetails(payload, chat);
 });
 
-bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS + ACCOUNT_ID_2), (payload, chat) => {
+bot.on(getPostbackPayload(ButtonPayload.VIEW_ACCOUNT_DETAIL + ACCOUNT_ID_2), (payload, chat) => {
   viewAccountDetails(payload, chat);
 });
 
