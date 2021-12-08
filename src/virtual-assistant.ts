@@ -2,10 +2,6 @@ import { confirmAccountButtons, getViewAccountDetailsButton } from '@server/butt
 import { ACCOUNT_DETAILS, ACCOUNT_ID_1, ACCOUNT_ID_2 } from '@server/constants';
 
 export const showEligibleAccounts = (_payload, chat) => {
-  chat.say('Please select your loan account that you want to modify', {
-    typing: true,
-  });
-
   const viewAccount1DetailsButton = getViewAccountDetailsButton(ACCOUNT_ID_1);
   const viewAccount2DetailsButton = getViewAccountDetailsButton(ACCOUNT_ID_2);
 
@@ -29,7 +25,8 @@ export const showEligibleAccounts = (_payload, chat) => {
     typing: true,
   };
 
-  chat.sendGenericTemplate(eligibleAccounts, options);
+  chat.say('Please select your loan account that you want to modify', options)
+    .then(() => chat.sendGenericTemplate(eligibleAccounts, options));
 };
 
 export const viewAccountDetails = (_payload, chat) => {
@@ -43,30 +40,33 @@ export const viewAccountDetails = (_payload, chat) => {
     typing: true,
   };
 
-  chat.say('Ok, here your Loan account details', options).then(() => chat.sendGenericTemplate([{
-    'title': 'Account Name',
-    'image_url': 'https://3.pik.vn/2021e6ddc94a-4465-41fe-ae5b-648e19a5f30d.png',
-    'subtitle': accountDetails.account,
-  },
-    {
-      'title': 'Parties on Loan',
-      'image_url': 'https://3.pik.vn/2021236a5a10-2e04-486c-a9e1-0eac5ff040a1.png',
-      'subtitle': accountDetails.parties,
-    },
-    {
-      'title': 'Current balance',
-      'image_url': 'https://3.pik.vn/2021939a8e17-b694-488d-91eb-bc98d7656726.png',
-      'subtitle': accountDetails.currentBalance,
-    },
-    {
-      'title': 'Current interest rate',
-      'image_url': 'https://3.pik.vn/202152a8342b-3539-43b9-bd80-1fa8a6d6f57c.png',
-      'subtitle': accountDetails.interestRate,
-    },
-    {
-      'title': 'Loan end date',
-      'image_url': 'https://2.pik.vn/2021282a709c-68fc-46b4-9ce8-0a0d0df7db1f.png',
-      'subtitle': accountDetails.endDate,
-    },
-  ], options).then(() => chat.sendButtonTemplate(`Please confirm these information about Loan account`, confirmAccountButtons)));
+  chat.say('Ok, here your Loan account details', options)
+    .then(() => chat.sendGenericTemplate([
+      {
+        'title': 'Account Name',
+        'image_url': 'https://3.pik.vn/2021e6ddc94a-4465-41fe-ae5b-648e19a5f30d.png',
+        'subtitle': accountDetails.account,
+      },
+      {
+        'title': 'Parties on Loan',
+        'image_url': 'https://3.pik.vn/2021236a5a10-2e04-486c-a9e1-0eac5ff040a1.png',
+        'subtitle': accountDetails.parties,
+      },
+      {
+        'title': 'Current balance',
+        'image_url': 'https://3.pik.vn/2021939a8e17-b694-488d-91eb-bc98d7656726.png',
+        'subtitle': accountDetails.currentBalance,
+      },
+      {
+        'title': 'Current interest rate',
+        'image_url': 'https://3.pik.vn/202152a8342b-3539-43b9-bd80-1fa8a6d6f57c.png',
+        'subtitle': accountDetails.interestRate,
+      },
+      {
+        'title': 'Loan end date',
+        'image_url': 'https://2.pik.vn/2021282a709c-68fc-46b4-9ce8-0a0d0df7db1f.png',
+        'subtitle': accountDetails.endDate,
+      },
+    ], options)
+      .then(() => chat.sendButtonTemplate(`Please confirm these information about Loan account`, confirmAccountButtons)));
 };
