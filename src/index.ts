@@ -126,7 +126,7 @@ bot.hear('term', (_payload, chat) => {
       {
         title: '1 Year',
         image_url:
-          'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Ffreepng%2Fcolorful-home-loan-icon--coin-symbol-with-house-sign_4962273.html&psig=AOvVaw013aXrN1DCSMOC6VNyc5Gn&ust=1639032072815000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPixnLvM0_QCFQAAAAAdAAAAABAD',
+          'https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-colorful-home-loan-icon--coin-symbol-with-house-sign-png-image_1657194.jpg',
         subtitle: 'Interest rate: 2.19% p.a.',
         buttons: [
           {
@@ -139,7 +139,7 @@ bot.hear('term', (_payload, chat) => {
       {
         title: '2 Years',
         image_url:
-          'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Ffreepng%2Fcolorful-home-loan-icon--coin-symbol-with-house-sign_4962273.html&psig=AOvVaw013aXrN1DCSMOC6VNyc5Gn&ust=1639032072815000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPixnLvM0_QCFQAAAAAdAAAAABAD',
+          'https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-colorful-home-loan-icon--coin-symbol-with-house-sign-png-image_1657194.jpg',
         subtitle: 'Interest rate: 2.00% p.a.',
         buttons: [
           {
@@ -152,7 +152,7 @@ bot.hear('term', (_payload, chat) => {
       {
         title: '3 Years',
         image_url:
-          'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Ffreepng%2Fcolorful-home-loan-icon--coin-symbol-with-house-sign_4962273.html&psig=AOvVaw013aXrN1DCSMOC6VNyc5Gn&ust=1639032072815000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPixnLvM0_QCFQAAAAAdAAAAABAD',
+          'https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-colorful-home-loan-icon--coin-symbol-with-house-sign-png-image_1657194.jpg',
         subtitle: 'Interest rate: 2.00% p.a.',
         buttons: [
           {
