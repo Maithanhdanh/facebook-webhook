@@ -1,6 +1,14 @@
+import * as moduleAlias from 'module-alias';
+const sourcePath = process.env.NODE_ENV === 'development' ? 'src' : 'build';
+moduleAlias.addAliases({
+  '@server': sourcePath,
+  '@config': `${sourcePath}/config`,
+  '@controller': `${sourcePath}/controller`,
+});
+
 import BootBot from 'bootbot';
-import {resolveIssueHandler} from "@server/application";
-import {persistent_menu} from "@server/buttons";
+import { resolveIssueHandler } from '@server/application';
+import { persistent_menu } from '@server/buttons';
 
 const bot = new BootBot({
   accessToken: process.env.PAGE_ACCESS_TOKEN,
@@ -10,7 +18,7 @@ const bot = new BootBot({
 
 bot.setGetStartedButton((_, chat) => {
   chat.say('Hello, How can I help you?');
-})
+});
 
 bot.setGreetingText("Hello, I'm Lisa. I'm a virtual assistant");
 
@@ -20,9 +28,15 @@ bot.on('postback:PERSISTENT_MENU_HELP', (_payload, chat) => {
   resolveIssueHandler(chat);
 });
 
-bot.hear([/([a-zA-Z0-9]* )*issue ([a-zA-Z0-9]* )*loan/i, /([a-zA-Z0-9]* )*loan ([a-zA-Z0-9]* )*issue/i], (_payload, chat) => {
-  resolveIssueHandler(chat);
-});
+bot.hear(
+  [
+    /([a-zA-Z0-9]* )*issue ([a-zA-Z0-9]* )*loan/i,
+    /([a-zA-Z0-9]* )*loan ([a-zA-Z0-9]* )*issue/i,
+  ],
+  (_payload, chat) => {
+    resolveIssueHandler(chat);
+  },
+);
 
 bot.hear(['hello', 'hi', /hey( there)?/i], (_payload, chat) => {
   // Send a text message followed by another text message that contains a typing indicator
@@ -34,21 +48,23 @@ bot.hear(['hello', 'hi', /hey( there)?/i], (_payload, chat) => {
 bot.hear(['food', 'hungry'], (_payload, chat) => {
   // Send a text message with quick replies
   chat.say({
-      text: 'What do you want to eat today?',
-      // quickReplies: ['Mexican', 'Italian', 'American', 'Argentine']
-      quickReplies:[
-        {
-          content_type:"text",
-          title:"Red",
-          payload:"HELP_SETTINGS",
-          image_url:"https://www.pngkey.com/png/full/13-137208_red-phone-icon-png-call-red-icon-png.png"
-        },{
-          content_type:"text",
-          title:"Green",
-          payload:"HELP_SETTINGS",
-          image_url:"http://example.com/img/green.png"
-        }
-      ]
+    text: 'What do you want to eat today?',
+    // quickReplies: ['Mexican', 'Italian', 'American', 'Argentine']
+    quickReplies: [
+      {
+        content_type: 'text',
+        title: 'Red',
+        payload: 'HELP_SETTINGS',
+        image_url:
+          'https://www.pngkey.com/png/full/13-137208_red-phone-icon-png-call-red-icon-png.png',
+      },
+      {
+        content_type: 'text',
+        title: 'Green',
+        payload: 'HELP_SETTINGS',
+        image_url: 'http://example.com/img/green.png',
+      },
+    ],
   });
 });
 
