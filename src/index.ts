@@ -8,7 +8,10 @@ moduleAlias.addAliases({
 
 import BootBot from 'bootbot';
 import { resolveIssueHandler } from '@server/application';
-import { persistent_menu } from '@server/buttons';
+import { ButtonBuilder, persistent_menu } from '@server/buttons';
+import { ACCOUNT_ID_1, ACCOUNT_ID_2, ButtonPayload } from '@server/constants';
+import { showEligibleAccounts, viewAccountDetails } from '@server/virtual-assistant';
+import { getPostbackPayload } from '@server/utils';
 
 const bot = new BootBot({
   accessToken: process.env.PAGE_ACCESS_TOKEN,
@@ -20,7 +23,7 @@ bot.setGetStartedButton((_, chat) => {
   chat.say('Hello, How can I help you?');
 });
 
-bot.setGreetingText("Hello, I'm Lisa. I'm a virtual assistant");
+bot.setGreetingText('Hello, I\'m Lisa. I\'m a virtual assistant');
 
 bot.setPersistentMenu(persistent_menu);
 
@@ -55,10 +58,8 @@ bot.hear(['food', 'hungry'], (_payload, chat) => {
         content_type: 'text',
         title: 'Red',
         payload: 'HELP_SETTINGS',
-        image_url:
-          'https://www.pngkey.com/png/full/13-137208_red-phone-icon-png-call-red-icon-png.png',
-      },
-      {
+        image_url: 'https://www.pngkey.com/png/full/13-137208_red-phone-icon-png-call-red-icon-png.png',
+      }, {
         content_type: 'text',
         title: 'Green',
         payload: 'HELP_SETTINGS',
@@ -76,6 +77,7 @@ bot.hear(['help'], (_payload, chat) => {
       { type: 'postback', title: 'Settings', payload: 'HELP_SETTINGS' },
       { type: 'postback', title: 'FAQ', payload: 'HELP_FAQ' },
       { type: 'postback', title: 'Talk to a human', payload: 'HELP_HUMAN' },
+      new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build(),
     ],
   });
 });
@@ -219,6 +221,33 @@ bot.hear('repayment-change', (_payload, chat) => {
       },
     ],
   });
+});
+
+bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS), (payload, chat) => {
+  showEligibleAccounts(payload, chat);
+});
+
+// bot.on('postback', (payload, chat) => {
+//   const regViewAccountButton = /VIEW_ACCOUNT_DETAIL:(\d+)/i;
+//   const buttonPayload = payload.postback.payload;
+//   const match = buttonPayload.match(regViewAccountButton);
+//
+//   if (match) {
+//     const buttonId = match[1];
+//     viewAccountDetails(payload, chat, buttonId);
+//   }
+// });
+
+bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS + ACCOUNT_ID_1), (payload, chat) => {
+  viewAccountDetails(payload, chat);
+});
+
+bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS + ACCOUNT_ID_2), (payload, chat) => {
+  viewAccountDetails(payload, chat);
+});
+
+bot.on(getPostbackPayload(ButtonPayload.TALK_TO_BANKER), (_payload, chat) => {
+  chat.say('In order to help serve you better, Lisa will turn to customer service staff to assist you! Thank you so much!');
 });
 
 bot.start(process.env.PORT);

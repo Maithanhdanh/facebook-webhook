@@ -1,25 +1,68 @@
+import { ButtonPayload } from './constants';
+
+export interface MessengerButton {
+  type?: 'postback';
+  payload: string;
+  title: string;
+}
+
+export class ButtonBuilder {
+  private readonly _button: MessengerButton;
+
+  constructor() {
+    this._button = {
+      payload: '',
+      title: '',
+    };
+  }
+
+  withTitle(title: string): ButtonBuilder {
+    this._button.title = title;
+    return this;
+  }
+
+  withPayload(payload: string): ButtonBuilder {
+    this._button.payload = payload;
+    return this;
+  }
+
+  build(): MessengerButton {
+    return this._button;
+  }
+}
+
+export const getViewAccountDetailsButton = (accountId: string): MessengerButton => {
+  const payload = ButtonPayload.VIEW_ACCOUNT_DETAIL + accountId;
+  return new ButtonBuilder().withPayload(payload).withTitle('View Details').build();
+};
+
+export const confirmAccountButtons = [
+  new ButtonBuilder().withPayload(ButtonPayload.CONFIRM_PROCESSING_ACCOUNT).withTitle('Yes, make changes to my loan').build(),
+  new ButtonBuilder().withPayload(ButtonPayload.TALK_TO_BANKER).withTitle('No, talk to banker').build(),
+];
+
 export const persistent_menu =
   [
     {
-      locale: "default",
+      locale: 'default',
       composer_input_disabled: false,
       call_to_actions: [
         {
-          type: "postback",
-          title: "Talk to me",
-          payload: "BOOTBOT_GET_STARTED"
+          type: 'postback',
+          title: 'Talk to me',
+          payload: 'BOOTBOT_GET_STARTED',
         },
         {
-          type: "postback",
-          title: "Help Loan",
-          payload: "PERSISTENT_MENU_HELP"
+          type: 'postback',
+          title: 'Help Loan',
+          payload: 'PERSISTENT_MENU_HELP',
         },
         {
-          type: "web_url",
-          title: "Support website",
-          url: "https://www.google.com/",
-          webview_height_ratio: "full"
-        }
-      ]
-    }
-  ]
+          type: 'web_url',
+          title: 'Support website',
+          url: 'https://www.google.com/',
+          webview_height_ratio: 'full',
+        },
+      ],
+    },
+  ];
