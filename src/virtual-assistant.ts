@@ -29,7 +29,7 @@ export const showEligibleAccounts = (_payload, chat) => {
     typing: true,
   };
 
-  chat.sendListTemplate(eligibleAccounts, [], options);
+  chat.sendGenericTemplate(eligibleAccounts, options);
 };
 
 export const viewAccountDetails = (_payload, chat) => {
