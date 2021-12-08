@@ -54,43 +54,43 @@ const getSummary = (_payload, chat) => {
       options,
     )
     .then(() =>
-      chat.say(
-        {
-          elements: [
-            {
-              title: '$1,353.33/month',
-              subtitle: 'Your previous minimum repayment was',
-            },
-            {
-              title: '$1,290.63/month',
-              subtitle: `You'll need to pay an estimated`,
-            },
-            {
-              title: '$62.70 less per month',
-              subtitle: 'Your total repayments are estimated to be',
-            },
-          ],
-          buttons: [
-            {
-              type: 'postback',
-              title: 'View terms of my home loan',
-              payload: 'VIEW_TERM',
-            },
-            {
-              type: 'postback',
-              title: 'Agree and submit',
-              payload: 'SUBMIT',
-            },
-            {
-              type: 'postback',
-              title: 'not agree and cancel',
-              payload: 'CANCEL_LOAN',
-            },
-          ],
-        },
+      chat.sendGenericTemplate(
+        [
+          {
+            title: '$1,353.33/month',
+            subtitle: 'Your previous minimum repayment was',
+          },
+          {
+            title: '$1,290.63/month',
+            subtitle: `You'll need to pay an estimated`,
+          },
+          {
+            title: '$62.70 less per month',
+            subtitle: 'Your total repayments are estimated to be',
+          },
+        ],
         options,
       ),
-    );
+    )
+    .then(() => {
+      chat.sendGenericTemplate([
+        {
+          type: 'postback',
+          title: 'View terms of my home loan',
+          payload: 'VIEW_TERM',
+        },
+        {
+          type: 'postback',
+          title: 'Agree and submit',
+          payload: 'SUBMIT',
+        },
+        {
+          type: 'postback',
+          title: 'not agree and cancel',
+          payload: 'CANCEL_LOAN',
+        },
+      ]);
+    });
 };
 
 const cancelLoan = (_payload, chat) => {
