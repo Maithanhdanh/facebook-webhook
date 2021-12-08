@@ -73,7 +73,7 @@ const getSummary = (_payload, chat) => {
       ),
     )
     .then(() =>
-      chat.sendGenericTemplate(
+      chat.sendButtonTemplate(
         [
           {
             type: 'postback',
