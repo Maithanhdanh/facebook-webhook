@@ -1,4 +1,4 @@
-import { ButtonPayload } from './constants';
+import { ACCOUNT_ID_1, ButtonPayload } from './constants';
 
 export interface MessengerButton {
   type: string;
@@ -70,6 +70,7 @@ export const persistent_menu =
           webview_height_ratio: 'full',
         },
         new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build(),
+        getViewAccountDetailsButton(ACCOUNT_ID_1)
       ],
     },
   ];
