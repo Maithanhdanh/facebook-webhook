@@ -28,7 +28,7 @@ bot.on('postback:PERSISTENT_MENU_HELP', (_payload, chat) => {
   resolveIssueHandler(chat);
 });
 
-bot.hear([/([a-zA-Z0-9]* )*issue ([a-zA-Z0-9]* )*loan/i, /([a-zA-Z0-9]* )*loan ([a-zA-Z0-9]* )*issue/i], (_payload, chat) => {
+bot.hear([/([a-zA-Z0-9]* )*help ([a-zA-Z0-9]* )*loan/i, /([a-zA-Z0-9]* )*loan ([a-zA-Z0-9]* )*help/i], (_payload, chat) => {
   resolveIssueHandler(chat);
 });
 

@@ -30,5 +30,5 @@ export enum loanModOptions {
   REFIX = 'Refix my interest rate',
   SPLIT = 'Split my home loan',
   YES = 'Yes',
-  NO = `No, I want to pay more, I'm rich`
+  NO = `No, I'm rich`
 }

@@ -3,22 +3,32 @@ import {loanModOptions} from "@server/constants";
 
 export const resolveIssueHandler = (chat) => {
   const question = {
-    text: `What's your Mod Type?`,
+    text: `Are you looking to save on your monthly loan payments?`,
     quickReplies:[
       {
         content_type:"text",
+        title:loanModOptions.YES,
+        // image_url:"https://cdn4.iconfinder.com/data/icons/loan-debt/64/Fixed_Interest_Rate-512.png"
+      },
+      {
+        content_type:"text",
         title:loanModOptions.FIX,
-        image_url:"https://cdn4.iconfinder.com/data/icons/loan-debt/64/Fixed_Interest_Rate-512.png"
+        // image_url:"https://cdn4.iconfinder.com/data/icons/loan-debt/64/Fixed_Interest_Rate-512.png"
       },
       {
         content_type:"text",
         title:loanModOptions.REFIX,
-        image_url:"https://cdn-icons-png.flaticon.com/512/1900/1900231.png"
+        // image_url:"https://cdn-icons-png.flaticon.com/512/1900/1900231.png"
       },
       {
         content_type:"text",
         title:loanModOptions.SPLIT,
-        image_url:"https://img.icons8.com/ios/452/split-money.png"
+        // image_url:"https://img.icons8.com/ios/452/split-money.png"
+      },
+      {
+        content_type:"text",
+        title:loanModOptions.NO,
+        // image_url:"https://img.icons8.com/ios/452/split-money.png"
       }
     ]
   }
@@ -30,6 +40,8 @@ export const resolveIssueHandler = (chat) => {
         convo.say(`There are no eligible account for Loan`);
       } else if (text == loanModOptions.SPLIT) {
         convo.say(`Let me check your account`).then(() => splitModType(convo));
+      } else if (text == loanModOptions.YES || text == loanModOptions.NO) {
+        convo.say(`Please select an account which you want to change your home loan`).then(() => getLoanAccount(convo));
       } else {
         convo.end();
       }
@@ -42,4 +54,9 @@ export const resolveIssueHandler = (chat) => {
   chat.conversation((convo) => {
     askModType(convo);
   });
+
+  const getLoanAccount = (convo) => {
+    convo.say(`In develop`);
+    convo.end();
+  }
 }
