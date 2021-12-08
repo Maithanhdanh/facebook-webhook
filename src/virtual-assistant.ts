@@ -1,12 +1,13 @@
-import { confirmAccountButton, viewAccountDetailsButton } from '@server/buttons';
+import { confirmAccountButtons, getViewAccountDetailsButton } from '@server/buttons';
+import { ACCOUNT_DETAILS, ACCOUNT_ID_1, ACCOUNT_ID_2 } from '@server/constants';
 
 export const showEligibleAccounts = (_payload, chat) => {
   chat.say('Please select your loan account that you want to modify', {
     typing: true,
   });
 
-  const viewAccount1DetailsButton = viewAccountDetailsButton(ACCOUNT_ID_1);
-  const viewAccount2DetailsButton = viewAccountDetailsButton(ACCOUNT_ID_2);
+  const viewAccount1DetailsButton = getViewAccountDetailsButton(ACCOUNT_ID_1);
+  const viewAccount2DetailsButton = getViewAccountDetailsButton(ACCOUNT_ID_2);
 
   const eligibleAccounts = [{
     title: `Home loan 1`,
@@ -54,9 +55,8 @@ export const viewAccountDetails = (_payload, chat, buttonId) => {
   };
 
   const askConfirmAccount = (convo) => {
-    convo.sendButtonTemplate(`Please confirm these information about Loan account`, confirmAccountButton);
+    convo.sendButtonTemplate(`Please confirm these information about Loan account`, confirmAccountButtons);
   };
-
 
   chat.conversation((convo) => {
     sendAccountDetails(convo);
