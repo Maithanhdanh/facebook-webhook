@@ -74,6 +74,7 @@ const getSummary = (_payload, chat) => {
     )
     .then(() =>
       chat.sendButtonTemplate(
+        `Are you ready to go`,
         [
           {
             type: 'postback',
