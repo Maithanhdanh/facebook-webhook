@@ -1,6 +1,6 @@
 import BootBot from 'bootbot';
 import { resolveIssueHandler } from '@server/application';
-import { ButtonBuilder, persistent_menu } from '@server/buttons';
+import { persistent_menu } from '@server/buttons';
 import { ACCOUNT_ID_1, ACCOUNT_ID_2, ButtonPayload } from '@server/constants';
 import { showEligibleAccounts, viewAccountDetails } from '@server/virtual-assistant';
 import { getPostbackPayload } from '@server/utils';
@@ -60,10 +60,11 @@ bot.hear(['help'], (_payload, chat) => {
   chat.say({
     text: 'What do you need help with?',
     buttons: [
-      { type: 'postback', title: 'Settings', payload: 'HELP_SETTINGS' },
-      { type: 'postback', title: 'FAQ', payload: 'HELP_FAQ' },
-      { type: 'postback', title: 'Talk to a human', payload: 'HELP_HUMAN' },
-      new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build(),
+      // { type: 'postback', title: 'Settings', payload: 'HELP_SETTINGS' },
+      // { type: 'postback', title: 'FAQ', payload: 'HELP_FAQ' },
+      // { type: 'postback', title: 'Talk to a human', payload: 'HELP_HUMAN' },
+      { type: 'web_url', title: 'Talk to google', url: 'https://www.google.com/', webview_height_ratio: 'compact', messenger_extensions: 'true' },
+      // new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build(),
     ],
   });
 });

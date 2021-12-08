@@ -1,9 +1,11 @@
 import express from 'express';
-import webhookRouter from '@controller/router'
+import {initWebRoutes} from "../routes/web";
 
-const createServer = (): express.Application => {
+const createServer = async (): Promise<express.Application> => {
   const app = express();
 
+  app.set("view engine", "html");
+  app.set("views","./src/webview");
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
@@ -13,7 +15,7 @@ const createServer = (): express.Application => {
     res.send('UP');
   });
 
-  app.use('/',webhookRouter)
+  initWebRoutes(app);
 
   return app;
 };
