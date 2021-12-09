@@ -27,6 +27,8 @@ export enum ButtonPayload {
   VIEW_TERM = 'VIEW_TERM',
   ACCEPT_TERM = 'ACCEPT_TERM',
   CANCEL_TERM = 'CANCEL_TERM',
+  NO_THANKS = 'NO_THANKS',
+  VIEW_ALL_ACCOUNTS = 'VIEW_ALL_ACCOUNTS'
 }
 
 export enum loanModOptions {
@@ -44,10 +46,10 @@ export enum LoanAmounts {
   ONE_HUNDRED_FIFTY_THOUSAND = '$100,000',
 }
 
-export const homeloan1 = (current: number) => {
+export const homeLoanAccount1 = (current: number) => {
   return {
     title: 'Home loan 1:',
-    subtitle: 'Current balance: +10,000,000\nBSB: 123465  AccNo: *****4688',
+    subtitle: 'Current balance: +$10,000,000\nBSB: 123465 - AccNo: *****4688',
     buttons: [
       {
         type: 'postback',
@@ -65,10 +67,10 @@ export const homeloan1 = (current: number) => {
   }
 };
 
-export const homeloan2 = (current: number) => {
+export const homeLoanAccount2 = (current: number) => {
   return {
     title: 'Home loan 2:',
-    subtitle: 'Current balance: +200,000,000\nBSB: 123465  AccNo: *****9876',
+    subtitle: 'Current balance: +$200,000,000\nBSB: 123465  AccNo: *****9876',
     buttons: [
       {
         type: 'postback',

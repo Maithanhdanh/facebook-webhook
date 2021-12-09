@@ -1,28 +1,19 @@
 import * as moduleAlias from 'module-alias';
+import BootBot from 'bootbot';
+import { resolveIssueHandler } from '@server/application';
+import { persistent_menu } from '@server/buttons';
+import { ButtonPayload } from '@server/constants';
+import { showEligibleAccounts } from '@server/virtual-assistant';
+import { getPostbackPayload } from '@server/utils';
+import { acceptLoan, cancelLoan, getSummary, getTerm, viewTerms } from '@server/selectTerm';
+import { initWebRoutes } from '@server/routes/web';
+
 const sourcePath = process.env.NODE_ENV === 'development' ? 'src' : 'build';
 moduleAlias.addAliases({
   '@server': sourcePath,
   '@config': `${sourcePath}/config`,
   '@controller': `${sourcePath}/controller`,
 });
-
-import BootBot from 'bootbot';
-import { inputLoanHandler, resolveIssueHandler } from '@server/application';
-import { persistent_menu } from '@server/buttons';
-import { ACCOUNT_ID_1, ACCOUNT_ID_2, ButtonPayload } from '@server/constants';
-import {
-  showEligibleAccounts,
-  viewAccountDetails,
-} from '@server/virtual-assistant';
-import { getPostbackPayload } from '@server/utils';
-import {
-  acceptLoan,
-  cancelLoan,
-  getSummary,
-  getTerm,
-  viewTerms,
-} from '@server/selectTerm';
-import {initWebRoutes} from "@server/routes/web";
 
 const bot = new BootBot({
   accessToken: process.env.PAGE_ACCESS_TOKEN,
@@ -38,7 +29,7 @@ bot.setGetStartedButton((_, chat) => {
   chat.say('Hello, How can I help you?');
 });
 
-bot.setGreetingText("Hello, I'm Lisa. I'm a virtual assistant");
+bot.setGreetingText('Hello, I\'m Lisa. I\'m a virtual assistant');
 
 bot.setPersistentMenu(persistent_menu);
 
@@ -56,9 +47,6 @@ bot.hear(
   },
 );
 
-bot.hear('input loan', (_payload, chat) => {
-  inputLoanHandler(chat);
-});
 
 bot.hear(['hello', 'hi', /hey( there)?/i], (_payload, chat) => {
   // Send a text message followed by another text message that contains a typing indicator
@@ -144,18 +132,8 @@ bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS), (payload, chat) => {
   showEligibleAccounts(payload, chat);
 });
 
-// bot.on('postback', (payload, chat) => {
-//   const regViewAccountButton = /VIEW_ACCOUNT_DETAIL:(\d+)/i;
-//   const buttonPayload = payload.postback.payload;
-//   const match = buttonPayload.match(regViewAccountButton);
-//
-//   if (match) {
-//     const buttonId = match[1];
-//     viewAccountDetails(payload, chat, buttonId);
-//   }
-// });
-
-bot.on(
+// Deprecated
+/*bot.on(
   getPostbackPayload(ButtonPayload.VIEW_ACCOUNT_DETAIL + ACCOUNT_ID_1),
   (payload, chat) => {
     viewAccountDetails(payload, chat);
@@ -180,7 +158,7 @@ bot.on(
   (_payload, chat) => {
     chat.say('This feature is in dev! Thank you so much!');
   },
-);
+);*/
 
 bot.hear('term', (_payload, chat) => getTerm(_payload, chat));
 
