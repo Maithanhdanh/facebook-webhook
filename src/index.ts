@@ -11,7 +11,7 @@ import { resolveIssueHandler } from '@server/application';
 import { persistent_menu } from '@server/buttons';
 import { ButtonPayload } from '@server/constants';
 import { getPostbackPayload } from '@server/utils';
-import { acceptLoan, cancelLoan, getSummary, getTerm, viewTerms } from '@server/selectTerm';
+import { acceptLoan, cancelLoan, getSummary, getTerm, viewTerms } from '@server/usecases/selectTerm';
 import { initWebRoutes } from '@server/routes/web';
 
 const bot = new BootBot({

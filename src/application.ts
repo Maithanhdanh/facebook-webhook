@@ -1,8 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-import { ButtonPayload, LoanModOptions } from '@server/constants';
-import { refixFlowButtons } from '@server/buttons';
-import { handleInputLoan } from '@server/inputLoan';
-import { homeLoanAccount1, homeLoanAccount2 } from '@server/loanAccounts';
+import { LoanModOptions } from '@server/constants';
+import { getLoanAccount } from '@server/usecases/common';
+import { refixModType } from '@server/usecases/refixMod';
+import { splitModType } from '@server/usecases/splitMod';
+import { fixModType } from '@server/usecases/fixMod';
 
 export const resolveIssueHandler = (chat) => {
   const question = {
@@ -53,125 +54,7 @@ export const resolveIssueHandler = (chat) => {
     });
   };
 
-  const fixModType = (convo) => {
-    const current = new Date().getTime();
-    const question = {
-      cards: [
-        homeLoanAccount1(current),
-      ],
-    };
-    const answer = (payload, convo) => {
-      console.log(payload);
-      const selected = payload.postback;
-      if (!selected || !['SELECT_HOME_LOAN_HL1'].includes(selected.payload)) {
-        convo.say('End process, Please try again');
-        convo.end();
-      } else {
-        convo.say(`You chose Home Loan 1. Let me check`).then(() => {
-          setTimeout(() => {
-            convo.say('You\'re eligible to fix your Home Loan 1');
-            convo.end();
-          }, 2000);
-        });
-      }
-    };
-    convo.ask(question, answer);
-  };
-
-  const refixModType = (convo) => {
-
-    const question = (convo) => (
-      convo.sendButtonTemplate('Sorry, there is no account eligible to be re-fixed. Please try another option', refixFlowButtons)
-    );
-
-    const answer = (payload, convo) => {
-      console.log(payload);
-      const selected = payload.postback;
-      if (!selected) {
-        convo.end();
-      }
-
-      switch (selected.payload) {
-        case ButtonPayload.VIEW_ALL_ACCOUNTS: {
-          convo.say(`Let me check your Loan accounts`)
-            .then(() => getLoanAccount(convo));
-          break;
-        }
-        case ButtonPayload.TALK_TO_BANKER: {
-          talkToBanker(convo);
-          break;
-        }
-        case ButtonPayload.NO_THANKS: {
-          noThanks(convo);
-          break;
-        }
-        default: {
-          convo.say('End process, Please try again!');
-          convo.end();
-          break;
-        }
-      }
-    };
-
-    convo.ask(question, answer);
-  };
-
-  const splitModType = (convo) => {
-    const current = new Date().getTime();
-    const question = {
-      cards: [
-        homeLoanAccount2(current),
-      ],
-    };
-    const answer = (payload, convo) => {
-      console.log(payload);
-      const selected = payload.postback;
-      if (!selected || !['SELECT_HOME_LOAN_HL2'].includes(selected.payload)) {
-        convo.say('End process, Please try again');
-        convo.end();
-      } else {
-        convo.say(`You chose Home Loan 2. Let me check`).then(() => handleInputLoan(convo));
-      }
-    };
-    convo.ask(question, answer);
-  };
-
-  const talkToBanker = (convo) => {
-    convo.say(`'In order to help serve you better, Lisa will turn to customer service staff to assist you! Thank you so much!'`);
-    convo.end();
-  };
-
-  const noThanks = (convo) => {
-    convo.say(`'Bye Bye! Thank you so much!'`);
-    convo.end();
-  };
-
   chat.conversation((convo) => {
     askModType(convo);
   });
-
-  const getLoanAccount = (convo) => {
-    const current = new Date().getTime();
-    const question = {
-      cards: [
-        homeLoanAccount1(current),
-        homeLoanAccount2(current),
-      ],
-    };
-    const answer = (payload, convo) => {
-      const selected = payload.postback;
-      if (!selected || !['SELECT_HOME_LOAN_HL1', 'SELECT_HOME_LOAN_HL2'].includes(selected.payload)) {
-        convo.say('End process, Please try again');
-        convo.end();
-      } else {
-        convo.say(`You choose ${selected.payload == 'SELECT_HOME_LOAN_HL1' ? 'Home Loan 1' : 'Home Loan 2'}, Let me check`).then(() => {
-          setTimeout(() => {
-            convo.say('There are no eligible account for Loan');
-            convo.end();
-          }, 2000);
-        });
-      }
-    };
-    convo.ask(question, answer);
-  };
 };
