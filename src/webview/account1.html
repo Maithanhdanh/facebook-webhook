@@ -1,28 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+
+  <title>Home Loan 1</title>
+
+  <style type='text/css'>
+      * {
+          margin: 0;
+          padding: 0;
+      }
+
+      body {
+          font: 16px Helvetica, Sans-Serif;
+          line-height: 24px;
+          background: url(images/noise.jpg);
+      }
+
+      .clear {
+          clear: both;
+      }
+
+      #page-wrap {
+          width: 800px;
+          margin: 40px auto 60px;
+      }
+
+      #pic {
+          float: right;
+          margin: -30px 0 0 0;
+      }
+
+      h1 {
+          margin: 0 0 16px 0;
+          padding: 0 0 16px 0;
+          font-size: 42px;
+          font-weight: bold;
+          letter-spacing: -2px;
+          border-bottom: 1px solid #999;
+      }
+
+      h2 {
+          font-size: 20px;
+          margin: 0 0 6px 0;
+          position: relative;
+      }
+
+      h2 span {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          font-style: italic;
+          font-family: Georgia, Serif;
+          font-size: 16px;
+          color: #999;
+          font-weight: normal;
+      }
+
+      p {
+          margin: 0 0 16px 0;
+      }
+
+      a {
+          color: #999;
+          text-decoration: none;
+          border-bottom: 1px dotted #999;
+      }
+
+      a:hover {
+          border-bottom-style: solid;
+          color: black;
+      }
+
+      ul {
+          margin: 0 0 32px 17px;
+      }
+
+      #objective {
+          width: 500px;
+          float: left;
+      }
+
+      #objective p {
+          font-family: Georgia, Serif;
+          font-style: italic;
+          color: #666;
+      }
+
+      dt {
+          font-style: italic;
+          font-weight: bold;
+          font-size: 18px;
+          text-align: right;
+          padding: 0 26px 0 0;
+          width: 150px;
+          float: left;
+          height: 100px;
+          border-right: 1px solid #999;
+      }
+
+      dd {
+          width: 600px;
+          float: right;
+      }
+
+      dd.clear {
+          float: none;
+          margin: 0;
+          height: 15px;
+      }
+  </style>
 </head>
 <script>
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'Messenger'));
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+      return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = '//connect.facebook.net/en_US/messenger.Extensions.js';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'Messenger'));
 
-    window.extAsyncInit = function() {
-        // the Messenger Extensions JS SDK is done loading
-    };
+  window.extAsyncInit = function() {
+    // the Messenger Extensions JS SDK is done loading
+  };
 </script>
 <body>
-<h1> Detail Loan 1</h1>
-<p>- Current balance: +10,000,000</p>
-<p>- BSB: 123465</p>
-<p>- AccNo: *****4688</p>
-<p>- Name: Peter</p>
-<p>- Phone: ********89</p>
+
+<div id='page-wrap'>
+
+  <img src='images/bank_icon.png' alt='Photo of Cthulu' id='pic' />
+
+  <div id='contact-info' class='vcard'>
+
+    <!-- Microformats! -->
+
+    <h1 class='fn'>Home loan 1</h1>
+  </div>
+
+  <div id='objective'>
+    <p>
+      Caution: For security reasons, this information will be expired soon.
+    </p>
+  </div>
+
+  <div class='clear'></div>
+
+  <dl>
+    <dd class='clear'></dd>
+
+    <dt>Account Details</dt>
+    <dd>
+      <h2>Current Balance </h2>
+      <ul>
+        <li>+$10,000,000</li>
+      </ul>
+
+      <h2>BSB - AccountNumber </h2>
+      <ul>
+        <li>BSB: 123465 - AccNo: *****4688</li>
+      </ul>
+
+      <h2>Parties on Loan </h2>
+      <ul>
+        <li>Ronaldo, Messi</li>
+      </ul>
+
+      <h2>Current Interest rate </h2>
+      <ul>
+        <li>3.14% p.a</li>
+      </ul>
+
+      <h2>Loan end date </h2>
+      <ul>
+        <li>31 Dec 2022</li>
+      </ul>
+    </dd>
+
+    <dd class='clear'></dd>
+  </dl>
+
+  <div class='clear'></div>
+
+</div>
+
 </body>
 </html>
