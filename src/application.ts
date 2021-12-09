@@ -79,9 +79,14 @@ export const resolveIssueHandler = (chat) => {
   };
 
   const refixModType = (convo) => {
-    const question = () => (
-      convo.sendButtonTemplate(`Sorry, there is no account eligible to be re-fixed. Please try another option`, refixFlowButtons)
-    );
+    const question = {
+      cards: [
+        {
+          title: 'Sorry, there is no account eligible to be re-fixed. Please try another option',
+          buttons: refixFlowButtons,
+        },
+      ],
+    };
 
     const answer = (payload, convo) => {
       console.log(payload);
