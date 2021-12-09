@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-import {homeloan1, homeloan2, LoanAmounts, loanModOptions} from "@server/constants";
+import {homeloan1, homeloan2, loanModOptions} from "@server/constants";
+import { handleInputLoan } from "./inputLoan";
 
 export const resolveIssueHandler = (chat) => {
   const question = {
@@ -80,8 +81,12 @@ export const resolveIssueHandler = (chat) => {
 
   const splitModType = (convo) => {
     convo.say(`In develop`);
+    //Quy's steps
+    handleInputLoan(convo);
+    //Dantis codes here
     convo.end();
   }
+
   chat.conversation((convo) => {
     askModType(convo);
   });
@@ -111,70 +116,3 @@ export const resolveIssueHandler = (chat) => {
     convo.ask(question, answer);
   }
 }
-
-export const inputLoanHandler = (chat) => {
-  const options = {
-    text: `Please input new fixed home loan in $`,
-    quickReplies: [
-      {
-        content_type: 'text',
-        title: LoanAmounts.TWENTY_THOUSAND,
-      },
-      {
-        content_type: 'text',
-        title: LoanAmounts.FIFTY_THOUSAND,
-      },
-      {
-        content_type: 'text',
-        title: LoanAmounts.ONE_HUNDRED_THOUSAND,
-      },
-      {
-        content_type: 'text',
-        title: LoanAmounts.ONE_HUNDRED_FIFTY_THOUSAND,
-      },
-    ],
-  };
-  const askInputLoan = (convo) => {
-    convo.ask(options, (payload, convo) => {
-      const text = payload.message.text;
-      convo.set('amount', text);
-      detailsLoan(convo, text);
-    });
-  };
-
-  const detailsLoan = (convo, text) => {
-    const receiptTemplate = `Loan amount is: ${text}`;
-    convo.say(receiptTemplate);
-    convo.say({
-      cards: [
-        {
-          title: 'Variable home loan account (existing)',
-          subtitle: `Loan amount: ${text}`,
-          buttons: [
-            {
-              type: 'postback',
-              title: 'Select',
-              payload: 'variable',
-            },
-          ],
-        },
-        {
-          title: 'Fixed home loan account (new)',
-          subtitle: 'Loan amount: +$120,000.00',
-          buttons: [
-            {
-              type: 'postback',
-              title: 'Select',
-              payload: 'fixed',
-            },
-          ],
-        },
-      ],
-    });
-    convo.end();
-  };
-
-  chat.conversation((convo) => {
-    askInputLoan(convo);
-  });
-};
