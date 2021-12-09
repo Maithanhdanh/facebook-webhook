@@ -80,12 +80,12 @@ export const selectTermButton = new ButtonBuilder()
 
 export const selectHomeLoanButton = [
   new ButtonBuilder()
-    .withPayload(ButtonPayload.SELECT_HOME_LOAN)
-    .withTitle('Select home loan 1')
+    .withPayload(ButtonPayload.VARIABLE_HOME_LOAN)
+    .withTitle('Select')
     .build(),
   new ButtonBuilder()
-    .withPayload(ButtonPayload.SELECT_HOME_LOAN)
-    .withTitle('Select home loan 2')
+    .withPayload(ButtonPayload.FIXED_HOME_LOAN)
+    .withTitle('Select')
     .build(),
 ];
 

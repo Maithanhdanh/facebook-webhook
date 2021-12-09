@@ -69,7 +69,11 @@ export const resolveIssueHandler = (chat) => {
           subtitle:
             'Current balance: +10,000,000\nBSB: 123465  AccNo: *****4688',
           buttons: [
-            selectHomeLoanButton[1],
+            {
+              type: 'postback',
+              title: 'Select home loan 1',
+              payload: 'HL1',
+            },
             {
               type: 'web_url',
               title: 'View detail',
@@ -84,7 +88,11 @@ export const resolveIssueHandler = (chat) => {
           subtitle:
             'Current balance: +200,000,000\nBSB: 123465  AccNo: *****9876',
           buttons: [
-            selectHomeLoanButton[2],
+            {
+              type: 'postback',
+              title: 'Select home loan 2',
+              payload: 'HL2',
+            },
             {
               type: 'web_url',
               title: 'View detail',
@@ -158,24 +166,12 @@ export const inputLoanHandler = (chat) => {
         {
           title: 'Variable home loan account (existing)',
           subtitle: `Loan amount: ${text}`,
-          buttons: [
-            {
-              type: 'postback',
-              title: 'Select',
-              payload: 'variable',
-            },
-          ],
+          buttons: [selectHomeLoanButton[0]],
         },
         {
           title: 'Fixed home loan account (new)',
           subtitle: 'Loan amount: +$120,000.00',
-          buttons: [
-            {
-              type: 'postback',
-              title: 'Select',
-              payload: 'fixed',
-            },
-          ],
+          buttons: [selectHomeLoanButton[1]],
         },
       ],
     });
