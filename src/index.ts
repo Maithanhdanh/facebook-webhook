@@ -7,7 +7,7 @@ moduleAlias.addAliases({
 });
 
 import BootBot from 'bootbot';
-import { inputLoanHandler, resolveIssueHandler } from '@server/application';
+import { resolveIssueHandler } from '@server/application';
 import { persistent_menu } from '@server/buttons';
 import { ACCOUNT_ID_1, ACCOUNT_ID_2, ButtonPayload } from '@server/constants';
 import {
@@ -54,9 +54,6 @@ bot.hear(
   },
 );
 
-bot.hear('input loan', (_payload, chat) => {
-  inputLoanHandler(chat);
-});
 
 bot.hear(['hello', 'hi', /hey( there)?/i], (_payload, chat) => {
   // Send a text message followed by another text message that contains a typing indicator

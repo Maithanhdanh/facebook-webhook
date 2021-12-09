@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-import { LoanAmounts, loanModOptions } from '@server/constants';
-import { selectHomeLoanButton } from './buttons';
+import { homeloan1, homeloan2, loanModOptions } from '@server/constants';
+import { handleInputLoan } from './inputLoan';
 
 export const resolveIssueHandler = (chat) => {
   const question = {
@@ -37,8 +37,14 @@ export const resolveIssueHandler = (chat) => {
     convo.ask(question, (payload, convo) => {
       const text = payload.message.text;
       convo.set('modType', text);
-      if (text == loanModOptions.FIX || text == loanModOptions.REFIX) {
-        convo.say(`There are no eligible account for Loan`);
+      if (text == loanModOptions.FIX) {
+        convo
+          .say(
+            `Please select an account which you want to fix an interest rate`,
+          )
+          .then(() => fixModType(convo));
+      } else if (text == loanModOptions.REFIX) {
+        convo.say(`Let me check your account`).then(() => refixModType(convo));
       } else if (text == loanModOptions.SPLIT) {
         convo.say(`Let me check your account`).then(() => splitModType(convo));
       } else if (text == loanModOptions.YES || text == loanModOptions.NO) {
@@ -52,10 +58,39 @@ export const resolveIssueHandler = (chat) => {
       }
     });
   };
+
+  const fixModType = (convo) => {
+    const current = new Date().getTime();
+    const question = {
+      cards: [homeloan1(current)],
+    };
+    const answer = (payload, convo) => {
+      console.log(payload);
+      convo.end();
+    };
+    convo.ask(question, answer);
+  };
+
+  const refixModType = (convo) => {
+    const current = new Date().getTime();
+    const question = {
+      cards: [homeloan1(current)],
+    };
+    const answer = (payload, convo) => {
+      console.log(payload);
+      convo.end();
+    };
+    convo.ask(question, answer);
+  };
+
   const splitModType = (convo) => {
     convo.say(`In develop`);
+    //Quy's steps
+    handleInputLoan(convo);
+    //Dantis codes here
     convo.end();
   };
+
   chat.conversation((convo) => {
     askModType(convo);
   });
@@ -63,46 +98,7 @@ export const resolveIssueHandler = (chat) => {
   const getLoanAccount = (convo) => {
     const current = new Date().getTime();
     const question = {
-      cards: [
-        {
-          title: 'Home loan 1:',
-          subtitle:
-            'Current balance: +10,000,000\nBSB: 123465  AccNo: *****4688',
-          buttons: [
-            {
-              type: 'postback',
-              title: 'Select home loan 1',
-              payload: 'HL1',
-            },
-            {
-              type: 'web_url',
-              title: 'View detail',
-              url: `${process.env.BASE_URL}/1/${current}`,
-              webview_height_ratio: 'compact', // tall, full
-              messenger_extensions: true,
-            },
-          ],
-        },
-        {
-          title: 'Home loan 2:',
-          subtitle:
-            'Current balance: +200,000,000\nBSB: 123465  AccNo: *****9876',
-          buttons: [
-            {
-              type: 'postback',
-              title: 'Select home loan 2',
-              payload: 'HL2',
-            },
-            {
-              type: 'web_url',
-              title: 'View detail',
-              url: `${process.env.BASE_URL}/2/${current}`,
-              webview_height_ratio: 'compact',
-              messenger_extensions: true,
-            },
-          ],
-        },
-      ],
+      cards: [homeloan1(current), homeloan2(current)],
     };
     const answer = (payload, convo) => {
       const selected = payload.postback;
@@ -126,59 +122,4 @@ export const resolveIssueHandler = (chat) => {
     };
     convo.ask(question, answer);
   };
-};
-
-export const inputLoanHandler = (chat) => {
-  const options = {
-    text: `Please input new fixed home loan in $`,
-    quickReplies: [
-      {
-        content_type: 'text',
-        title: LoanAmounts.TWENTY_THOUSAND,
-      },
-      {
-        content_type: 'text',
-        title: LoanAmounts.FIFTY_THOUSAND,
-      },
-      {
-        content_type: 'text',
-        title: LoanAmounts.ONE_HUNDRED_THOUSAND,
-      },
-      {
-        content_type: 'text',
-        title: LoanAmounts.ONE_HUNDRED_FIFTY_THOUSAND,
-      },
-    ],
-  };
-  const askInputLoan = (convo) => {
-    convo.ask(options, (payload, convo) => {
-      const text = payload.message.text;
-      convo.set('amount', text);
-      detailsLoan(convo, text);
-    });
-  };
-
-  const detailsLoan = (convo, text) => {
-    const receiptTemplate = `Loan amount is: ${text}`;
-    convo.say(receiptTemplate);
-    convo.say({
-      cards: [
-        {
-          title: 'Variable home loan account (existing)',
-          subtitle: `Loan amount: ${text}`,
-          buttons: [selectHomeLoanButton],
-        },
-        {
-          title: 'Fixed home loan account (new)',
-          subtitle: 'Loan amount: +$120,000.00',
-          buttons: [selectHomeLoanButton],
-        },
-      ],
-    });
-    convo.end();
-  };
-
-  chat.conversation((convo) => {
-    askInputLoan(convo);
-  });
 };
