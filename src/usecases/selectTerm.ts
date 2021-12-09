@@ -40,17 +40,18 @@ const getTerm = (convo) => {
     }
   };
 
-  convo.say(
-    `You are currently paying
+  convo
+    .say(
+      `You are currently paying
       - Minimum monthly payment: $1,353.33
       - Frequency: Monthly
       - Interest rate: 4.64% p.a.
       - Interest Type: Principal and Interest
       - Current balance: $300,000.00
     `,
-    options,
-  );
-  convo.ask(cards, answer);
+      options,
+    )
+    .then(() => convo.ask(cards, answer));
 };
 
 const answerLoan = (payload, convo) => {
