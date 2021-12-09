@@ -34,7 +34,8 @@ export const initWebRoutes = (bot)=> {
     current.setSeconds(current.getSeconds() - 100);
     console.log('________________________', current.toString());
     console.log('________________________', current.getTime());
-    console.log('________________________', _req.params.timestamp)
+    console.log('________________________', new Date(_req.params.timestamp).toString())
+    console.log('________________________', _req.params.timestamp);
     if (Number(_req.params.timestamp) < current.getTime()) {
       console.log('___________________________ session timeout');
       return;
