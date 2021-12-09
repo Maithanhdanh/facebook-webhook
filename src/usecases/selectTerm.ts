@@ -1,10 +1,11 @@
-import { confirmLoanButtons, selectTermButton } from './buttons';
+import { confirmLoanButtons, selectTermButton } from '@server/buttons';
+import { ButtonPayload } from '@server/constants';
 
 const options = {
   typing: true,
 };
 
-const getTerm = (_payload, chat) => {
+const getTerm = (convo) => {
   const cards = [
     {
       title: '1 Year',
@@ -29,7 +30,17 @@ const getTerm = (_payload, chat) => {
     },
   ];
 
-  chat
+  const answer = (payload, convo) => {
+    const selected = payload.postback;
+    if (!selected || ![ButtonPayload.SELECT_TERM].includes(selected.payload)) {
+      convo.say('End process, Please try again');
+      convo.end();
+    } else {
+      convo.say('Here is your summary').then(() => getSummary(convo));
+    }
+  };
+
+  convo
     .say(
       `You are currently paying
       - Minimum monthly payment: $1,353.33
@@ -40,13 +51,40 @@ const getTerm = (_payload, chat) => {
     `,
       options,
     )
-    .then(() => chat.say({ cards }, options));
+    .then(() => convo.ask({ cards }, answer));
 };
 
-const getSummary = (_payload, chat) => {
-  chat
+const answerLoan = (payload, convo) => {
+  if (!payload || !payload.postback ||
+    ![ButtonPayload.VIEW_TERM.toUpperCase(),
+      ButtonPayload.ACCEPT_TERM.toUpperCase(),
+      ButtonPayload.CANCEL_TERM.toUpperCase()].includes(payload.postback.toUpperCase())) {
+    convo.end();
+  }
+  const selected = payload.postback;
+
+  switch (selected) {
+    case ButtonPayload.VIEW_TERM:
+      getTerm(convo);
+      break;
+    case ButtonPayload.ACCEPT_TERM:
+      acceptLoan(convo);
+      break;
+    case ButtonPayload.CANCEL_TERM:
+      cancelLoan(convo);
+      break;
+    default:
+      break;
+  }
+};
+
+const getSummary = (convo) => {
+  const question = (convo) => {
+    convo.sendButtonTemplate(`Are you ready to go?`, confirmLoanButtons);
+  };
+  convo
     .say(
-      `You fixed home loan account (new)
+      `Your fixed home loan account (new)
       Loan amount: $120,000.00
       Estimated repayment: $646.83/month
       Interest rate: 2.00% p.a.
@@ -54,7 +92,7 @@ const getSummary = (_payload, chat) => {
       options,
     )
     .then(() =>
-      chat.sendGenericTemplate(
+      convo.sendGenericTemplate(
         [
           {
             title: '$1,353.33/month',
@@ -70,27 +108,22 @@ const getSummary = (_payload, chat) => {
           },
         ],
         options,
-      ),
+      )
     )
-    .then(() =>
-      chat.sendButtonTemplate(
-        `Are you ready to go?`,
-        confirmLoanButtons,
-        options,
-      ),
-    );
+    .then(() => convo.ask(question, answerLoan));
 };
 
-const viewTerms = (_payload, chat) => {
-  chat.say(`selected terms!`, options);
+const viewTerms = (convo) => {
+  convo.say(`selected terms!`, options);
 };
 
-const acceptLoan = (_payload, chat) => {
-  chat.say(`Yeah!`, options);
+const acceptLoan = (convo) => {
+  convo.say(`I send you`, options);
 };
 
-const cancelLoan = (_payload, chat) => {
-  chat.say(`Bye, Bye!`, options);
+const cancelLoan = (convo) => {
+  convo.say(`Bye, Bye!`, options);
+  convo.end();
 };
 
 export { cancelLoan, getSummary, getTerm, viewTerms, acceptLoan };

@@ -1,10 +1,15 @@
-import { ButtonPayload } from './constants';
+import { ButtonPayload } from '@server/constants';
 
 export interface MessengerButton {
   type: string;
   payload: string;
   title: string;
+  url?: string;
+  webview_height_ratio?: webview_height_type;
+  messenger_extensions?: boolean;
 }
+
+export type webview_height_type = "compact" | "tall" | "full"
 
 export class ButtonBuilder {
   private readonly _button: MessengerButton;
@@ -13,7 +18,7 @@ export class ButtonBuilder {
     this._button = {
       type: 'postback',
       payload: '',
-      title: '',
+      title: ''
     };
   }
 
@@ -32,40 +37,33 @@ export class ButtonBuilder {
     return this;
   }
 
+  withUrl(url: string): ButtonBuilder {
+    this._button.url = url;
+    return this;
+  }
+
+  withHeightRatio(type: webview_height_type): ButtonBuilder {
+    this._button.webview_height_ratio = type;
+    return this;
+  }
+
+  withMessengerExtension(active: boolean): ButtonBuilder {
+    this._button.messenger_extensions = active;
+    return this;
+  }
+
   build(): MessengerButton {
     return this._button;
   }
 }
 
-export const getViewAccountDetailsButton = (
-  account: string,
-): MessengerButton => {
-  const payload = ButtonPayload.VIEW_ACCOUNT_DETAIL + account;
-  return new ButtonBuilder()
-    .withPayload(payload)
-    .withTitle('View Details')
-    .build();
-};
-
-export const confirmAccountButtons = [
-  new ButtonBuilder()
-    .withPayload(ButtonPayload.CONFIRM_PROCESSING_ACCOUNT)
-    .withTitle('Yes, modify loan')
-    .build(),
-  new ButtonBuilder()
-    .withPayload(ButtonPayload.TALK_TO_BANKER)
-    .withTitle('Talk to banker')
-    .build(),
-];
-
 export const confirmLoanButtons = [
   new ButtonBuilder()
-    .withPayload(ButtonPayload.VIEW_TERM)
     .withTitle('View selected terms')
-    .build(),
-  new ButtonBuilder()
-    .withPayload(ButtonPayload.ACCEPT_TERM)
-    .withTitle('Agree and submit')
+    .withType('web_url')
+    .withUrl(`${process.env.BASE_URL}/confirm/2/${(new Date()).getTime()}`)
+    .withMessengerExtension(true)
+    .withHeightRatio("full")
     .build(),
   new ButtonBuilder()
     .withPayload(ButtonPayload.CANCEL_TERM)
@@ -75,7 +73,17 @@ export const confirmLoanButtons = [
 
 export const selectTermButton = new ButtonBuilder()
   .withPayload(ButtonPayload.SELECT_TERM)
-  .withTitle('Select Term')
+  .withTitle('Select')
+  .build();
+
+export const selectHomeLoanButton = (account: string) => new ButtonBuilder()
+  .withPayload(ButtonPayload.SELECT_HOME_LOAN + '_' + account)
+  .withTitle('Select')
+  .build();
+
+export const selectHomeLoanDetailButton =  new ButtonBuilder()
+  .withPayload(ButtonPayload.SELECT_HOME_LOAN_DETAILS)
+  .withTitle('Select')
   .build();
 
 export const persistent_menu = [
@@ -99,10 +107,6 @@ export const persistent_menu = [
         url: 'https://www.google.com/',
         webview_height_ratio: 'full',
       },
-      new ButtonBuilder()
-        .withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS)
-        .withTitle('Show eligible accounts')
-        .build(),
     ],
   },
 ];

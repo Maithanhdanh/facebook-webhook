@@ -4,7 +4,8 @@ import request from "request"
 
 const router = express.Router();
 
-export const initWebRoutes = (app)=> {
+export const initWebRoutes = (bot)=> {
+  const app = bot.app;
   app.use(express.static("./src/public"));
   app.set("view engine", "html");
   app.engine('html', ejs.renderFile);
@@ -15,9 +16,16 @@ export const initWebRoutes = (app)=> {
   app.disable('x-powered-by');
 
   router.get("/:id/:timestamp", (_req, res) => {
+    console.log('________________________ current: ', (new Date()).toString());
+    console.log('________________________ timestamp current', (new Date()).getTime());
     const current = new Date()
-    current.setSeconds(current.getSeconds() - 20);
+    current.setMinutes(current.getMinutes() - 4);
+    console.log('________________________ current - 100: ', current.toString());
+    console.log('________________________ timestamp current - 100: ', current.getTime());
+    console.log('________________________ date from url: ', new Date(Number(_req.params.timestamp)).toString())
+    console.log('________________________ timestamp from url: ', _req.params.timestamp);
     if (Number(_req.params.timestamp) < current.getTime()) {
+      console.log('___________________________ session timeout');
       return;
     }
     if (_req.params.id == '1') {
@@ -27,11 +35,18 @@ export const initWebRoutes = (app)=> {
   });
 
   router.get("/confirm/:id/:timestamp", (_req, res) => {
+    console.log('________________________ current: ', (new Date()).toString());
+    console.log('________________________ timestamp current', (new Date()).getTime());
     const current = new Date()
-    current.setSeconds(current.getSeconds() - 20);
-    // if (Number(_req.params.timestamp) < current.getTime()) {
-    //   return;
-    // }
+    current.setMinutes(current.getMinutes() - 4);
+    console.log('________________________ current - 100: ', current.toString());
+    console.log('________________________ timestamp current - 100: ', current.getTime());
+    console.log('________________________ date from url: ', new Date(Number(_req.params.timestamp)).toString())
+    console.log('________________________ timestamp from url: ', _req.params.timestamp);
+    if (Number(_req.params.timestamp) < current.getTime()) {
+      console.log('___________________________ session timeout');
+      return;
+    }
     return res.render("confirm.html");
   });
 
@@ -59,9 +74,12 @@ export const initWebRoutes = (app)=> {
       });
     };
     const response = {
-      "text": `You have accepted the changes made to the loan`
+      "text": `We have got your change request\nWhat's next?\nWe'll your change will be processed within 1 to 2 business days.\nWe'll notify you by SMS when your loan has been updated.\nThanks for chatting with us! ^_^`
     };
     callSendAPI(_req.body.psid, response);
+    if (bot._conversations) {
+      bot._conversations[0].end()
+    }
     return res.render("agree.html");
   })
 

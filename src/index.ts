@@ -1,13 +1,4 @@
 import * as moduleAlias from 'module-alias';
-import BootBot from 'bootbot';
-import { resolveIssueHandler } from '@server/application';
-import { persistent_menu } from '@server/buttons';
-import { ButtonPayload } from '@server/constants';
-import { showEligibleAccounts } from '@server/virtual-assistant';
-import { getPostbackPayload } from '@server/utils';
-import { acceptLoan, cancelLoan, getSummary, getTerm, viewTerms } from '@server/selectTerm';
-import { initWebRoutes } from '@server/routes/web';
-
 const sourcePath = process.env.NODE_ENV === 'development' ? 'src' : 'build';
 moduleAlias.addAliases({
   '@server': sourcePath,
@@ -15,15 +6,18 @@ moduleAlias.addAliases({
   '@controller': `${sourcePath}/controller`,
 });
 
+import BootBot from 'bootbot';
+import { resolveIssueHandler } from '@server/application';
+import { persistent_menu } from '@server/buttons';
+import { initWebRoutes } from '@server/routes/web';
+
 const bot = new BootBot({
   accessToken: process.env.PAGE_ACCESS_TOKEN,
   verifyToken: process.env.VERIFY_TOKEN,
   appSecret: process.env.APP_SECRET,
 });
 
-
-initWebRoutes(bot.app);
-
+initWebRoutes(bot);
 
 bot.setGetStartedButton((_, chat) => {
   chat.say('Hello, How can I help you?');
@@ -47,7 +41,6 @@ bot.hear(
   },
 );
 
-
 bot.hear(['hello', 'hi', /hey( there)?/i], (_payload, chat) => {
   // Send a text message followed by another text message that contains a typing indicator
   chat.say('Hello, human friend!').then(() => {
@@ -65,8 +58,10 @@ bot.hear(['food', 'hungry'], (_payload, chat) => {
         content_type: 'text',
         title: 'Red',
         payload: 'HELP_SETTINGS',
-        image_url: 'https://www.pngkey.com/png/full/13-137208_red-phone-icon-png-call-red-icon-png.png',
-      }, {
+        image_url:
+          'https://www.pngkey.com/png/full/13-137208_red-phone-icon-png-call-red-icon-png.png',
+      },
+      {
         content_type: 'text',
         title: 'Green',
         payload: 'HELP_SETTINGS',
@@ -84,7 +79,13 @@ bot.hear(['help'], (_payload, chat) => {
       // { type: 'postback', title: 'Settings', payload: 'HELP_SETTINGS' },
       // { type: 'postback', title: 'FAQ', payload: 'HELP_FAQ' },
       // { type: 'postback', title: 'Talk to a human', payload: 'HELP_HUMAN' },
-      { type: 'web_url', title: 'Talk to google', url: `${process.env.BASE_URL}/confirm/2/${123}`, webview_height_ratio: 'tall', messenger_extensions: true },
+      {
+        type: 'web_url',
+        title: 'Talk to google',
+        url: `${process.env.BASE_URL}/confirm/2/${123}`,
+        webview_height_ratio: 'tall',
+        messenger_extensions: true,
+      },
       // new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build(),
     ],
   });
@@ -99,7 +100,6 @@ bot.hear('image', (_payload, chat) => {
 });
 
 bot.hear('ask me something', (_payload, chat) => {
-
   const askName = (convo) => {
     convo.ask(`What's your name?`, (payload, convo) => {
       const text = payload.message.text;
@@ -112,7 +112,9 @@ bot.hear('ask me something', (_payload, chat) => {
     convo.ask(`What's your favorite food?`, (payload, convo) => {
       const text = payload.message.text;
       convo.set('food', text);
-      convo.say(`Got it, your favorite food is ${text}`).then(() => sendSummary(convo));
+      convo
+        .say(`Got it, your favorite food is ${text}`)
+        .then(() => sendSummary(convo));
     });
   };
 
@@ -127,55 +129,5 @@ bot.hear('ask me something', (_payload, chat) => {
     askName(convo);
   });
 });
-
-bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS), (payload, chat) => {
-  showEligibleAccounts(payload, chat);
-});
-
-// Deprecated
-/*bot.on(
-  getPostbackPayload(ButtonPayload.VIEW_ACCOUNT_DETAIL + ACCOUNT_ID_1),
-  (payload, chat) => {
-    viewAccountDetails(payload, chat);
-  },
-);
-
-bot.on(
-  getPostbackPayload(ButtonPayload.VIEW_ACCOUNT_DETAIL + ACCOUNT_ID_2),
-  (payload, chat) => {
-    viewAccountDetails(payload, chat);
-  },
-);
-
-bot.on(getPostbackPayload(ButtonPayload.TALK_TO_BANKER), (_payload, chat) => {
-  chat.say(
-    'In order to help serve you better, Lisa will turn to customer service staff to assist you! Thank you so much!',
-  );
-});
-
-bot.on(
-  getPostbackPayload(ButtonPayload.CONFIRM_PROCESSING_ACCOUNT),
-  (_payload, chat) => {
-    chat.say('This feature is in dev! Thank you so much!');
-  },
-);*/
-
-bot.hear('term', (_payload, chat) => getTerm(_payload, chat));
-
-bot.on(getPostbackPayload(ButtonPayload.SELECT_TERM), (_payload, chat) =>
-  getSummary(_payload, chat),
-);
-
-bot.on(getPostbackPayload(ButtonPayload.VIEW_TERM), (_payload, chat) =>
-  viewTerms(_payload, chat),
-);
-
-bot.on(getPostbackPayload(ButtonPayload.ACCEPT_TERM), (_payload, chat) =>
-  acceptLoan(_payload, chat),
-);
-
-bot.on(getPostbackPayload(ButtonPayload.CANCEL_TERM), (_payload, chat) =>
-  cancelLoan(_payload, chat),
-);
 
 bot.start(process.env.PORT);
