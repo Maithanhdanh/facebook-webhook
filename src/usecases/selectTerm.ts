@@ -1,4 +1,5 @@
 import { confirmLoanButtons, selectTermButton } from '@server/buttons';
+import { ButtonPayload } from '@server/constants';
 
 const options = {
   typing: true,
@@ -44,6 +45,24 @@ const getTerm = (convo) => {
     .then(() => getSummary(convo));
 };
 
+const answerLoan = (payload, convo) => {
+  const selected = payload.postback;
+
+  switch (selected) {
+    case ButtonPayload.VIEW_TERM:
+      getTerm(convo);
+      break;
+    case ButtonPayload.ACCEPT_TERM:
+      acceptLoan(payload, convo);
+      break;
+    case ButtonPayload.CANCEL_TERM:
+      cancelLoan(payload, convo);
+      break;
+    default:
+      break;
+  }
+};
+
 const getSummary = (convo) => {
   convo
     .say(
@@ -73,13 +92,8 @@ const getSummary = (convo) => {
         options,
       ),
     )
-    .then(() =>
-      convo.sendButtonTemplate(
-        `Are you ready to go?`,
-        confirmLoanButtons,
-        options,
-      ),
-    );
+    .then(() => convo.sendButtonTemplate(`Are you ready to go?`, options))
+    .then(() => convo.ask(confirmLoanButtons, answerLoan));
 };
 
 const viewTerms = (_payload, chat) => {
