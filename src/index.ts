@@ -86,13 +86,7 @@ bot.hear(['help'], (_payload, chat) => {
       // { type: 'postback', title: 'Settings', payload: 'HELP_SETTINGS' },
       // { type: 'postback', title: 'FAQ', payload: 'HELP_FAQ' },
       // { type: 'postback', title: 'Talk to a human', payload: 'HELP_HUMAN' },
-      {
-        type: 'web_url',
-        title: 'Talk to google',
-        url: 'https://a724-2405-4800-5716-f34b-d4cb-3b85-f097-4977.ngrok.io/',
-        webview_height_ratio: 'compact',
-        messenger_extensions: true,
-      },
+      { type: 'web_url', title: 'Talk to google', url: `${process.env.BASE_URL}/confirm/2/${123}`, webview_height_ratio: 'tall', messenger_extensions: true },
       // new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build(),
     ],
   });
