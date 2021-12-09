@@ -23,7 +23,7 @@ bot.setGetStartedButton((_, chat) => {
   chat.say('Hello, How can I help you?');
 });
 
-bot.setGreetingText("Hello, I'm Lisa. I'm a virtual assistant");
+bot.setGreetingText('Hello, I\'m Lisa. I\'m a virtual assistant');
 
 bot.setPersistentMenu(persistent_menu);
 
@@ -79,7 +79,13 @@ bot.hear(['help'], (_payload, chat) => {
       // { type: 'postback', title: 'Settings', payload: 'HELP_SETTINGS' },
       // { type: 'postback', title: 'FAQ', payload: 'HELP_FAQ' },
       // { type: 'postback', title: 'Talk to a human', payload: 'HELP_HUMAN' },
-      { type: 'web_url', title: 'Talk to google', url: `${process.env.BASE_URL}/confirm/2/${123}`, webview_height_ratio: 'tall', messenger_extensions: true },
+      {
+        type: 'web_url',
+        title: 'Talk to google',
+        url: `${process.env.BASE_URL}/confirm/2/${123}`,
+        webview_height_ratio: 'tall',
+        messenger_extensions: true,
+      },
       // new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build(),
     ],
   });

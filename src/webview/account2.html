@@ -125,13 +125,6 @@
 
   window.extAsyncInit = function() {
     // the Messenger Extensions JS SDK is done loading
-    MessengerExtensions.requestCloseBrowser(function success() {
-      // webview closed
-      console.log('closed');
-    }, function error(err) {
-      // an error occurred
-      console.log(err);
-    });
   };
 </script>
 <body>
