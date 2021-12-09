@@ -189,12 +189,8 @@ bot.on(
   },
 );
 
-bot.on(
-  [
-    getPostbackPayload(ButtonPayload.FIXED_HOME_LOAN),
-    getPostbackPayload(ButtonPayload.VARIABLE_HOME_LOAN),
-  ],
-  (_payload, chat) => getTerm(_payload, chat),
+bot.on(getPostbackPayload(ButtonPayload.SELECT_HOME_LOAN), (_payload, chat) =>
+  getTerm(_payload, chat),
 );
 
 bot.on(getPostbackPayload(ButtonPayload.SELECT_TERM), (_payload, chat) =>

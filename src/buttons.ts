@@ -75,19 +75,13 @@ export const confirmLoanButtons = [
 
 export const selectTermButton = new ButtonBuilder()
   .withPayload(ButtonPayload.SELECT_TERM)
-  .withTitle('Select Term')
+  .withTitle('Select')
   .build();
 
-export const selectHomeLoanButton = [
-  new ButtonBuilder()
-    .withPayload(ButtonPayload.VARIABLE_HOME_LOAN)
-    .withTitle('Select')
-    .build(),
-  new ButtonBuilder()
-    .withPayload(ButtonPayload.FIXED_HOME_LOAN)
-    .withTitle('Select')
-    .build(),
-];
+export const selectHomeLoanButton = new ButtonBuilder()
+  .withPayload(ButtonPayload.SELECT_HOME_LOAN)
+  .withTitle('Select')
+  .build();
 
 export const persistent_menu = [
   {

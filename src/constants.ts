@@ -29,6 +29,7 @@ export enum ButtonPayload {
   CANCEL_TERM = 'CANCEL_TERM',
   VARIABLE_HOME_LOAN = 'VARIABLE_HOME_LOAN',
   FIXED_HOME_LOAN = 'FIXED_HOME_LOAN',
+  SELECT_HOME_LOAN = 'SELECT_HOME_LOAN',
 }
 
 export enum loanModOptions {

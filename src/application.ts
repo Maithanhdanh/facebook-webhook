@@ -166,12 +166,12 @@ export const inputLoanHandler = (chat) => {
         {
           title: 'Variable home loan account (existing)',
           subtitle: `Loan amount: ${text}`,
-          buttons: [selectHomeLoanButton[0]],
+          buttons: [selectHomeLoanButton],
         },
         {
           title: 'Fixed home loan account (new)',
           subtitle: 'Loan amount: +$120,000.00',
-          buttons: [selectHomeLoanButton[1]],
+          buttons: [selectHomeLoanButton],
         },
       ],
     });
