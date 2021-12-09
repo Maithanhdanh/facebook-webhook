@@ -51,7 +51,7 @@ const getTerm = (convo) => {
     `,
       options,
     )
-    .then(() => convo.ask(cards, answer));
+    .then(() => convo.ask({ cards }, answer));
 };
 
 const answerLoan = (payload, convo) => {
