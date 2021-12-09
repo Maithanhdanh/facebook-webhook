@@ -30,9 +30,9 @@ export const initWebRoutes = (bot)=> {
   router.get("/confirm/:id/:timestamp", (_req, res) => {
     const current = new Date()
     current.setSeconds(current.getSeconds() - 100);
-    console.log('________________________', _req.body)
+    console.log('________________________', _req.params)
     console.log('________________________', current.getTime());
-    console.log('________________________', _req.body.timestamp)
+    console.log('________________________', _req.params.timestamp)
     // if (Number(_req.params.timestamp) < current.getTime()) {
     //   return;
     // }
