@@ -31,7 +31,7 @@ const detailsLoan = (convo, text) => {
       convo.say('End process, Please try again');
       convo.end();
     } else {
-      convo.say(`Please select your term`).then(() => getTerm(convo));
+      convo.say().then(() => getTerm(convo));
     }
   };
 
