@@ -37,16 +37,6 @@ export class ButtonBuilder {
   }
 }
 
-export const getViewAccountDetailsButton = (
-  account: string,
-): MessengerButton => {
-  const payload = ButtonPayload.VIEW_ACCOUNT_DETAIL + account;
-  return new ButtonBuilder()
-    .withPayload(payload)
-    .withTitle('View Details')
-    .build();
-};
-
 export const confirmLoanButtons = [
   new ButtonBuilder()
     .withPayload(ButtonPayload.VIEW_TERM)
@@ -67,7 +57,7 @@ export const selectTermButton = new ButtonBuilder()
   .withTitle('Select')
   .build();
 
-export const selectHomeLoanButton = (account) => new ButtonBuilder()
+export const selectHomeLoanButton = (account: string) => new ButtonBuilder()
   .withPayload(ButtonPayload.SELECT_HOME_LOAN + '_' + account)
   .withTitle('Select')
   .build();
