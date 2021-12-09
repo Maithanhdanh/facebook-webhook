@@ -38,9 +38,9 @@ export class ButtonBuilder {
 }
 
 export const getViewAccountDetailsButton = (
-  accountId: string,
+  account: string,
 ): MessengerButton => {
-  const payload = ButtonPayload.VIEW_ACCOUNT_DETAIL + accountId;
+  const payload = ButtonPayload.VIEW_ACCOUNT_DETAIL + account;
   return new ButtonBuilder()
     .withPayload(payload)
     .withTitle('View Details')
@@ -110,4 +110,19 @@ export const persistent_menu = [
         .build(),
     ],
   },
+];
+
+export const refixFlowButtons = [
+  new ButtonBuilder()
+    .withPayload(ButtonPayload.VIEW_ALL_ACCOUNTS)
+    .withTitle('View all my account')
+    .build(),
+  new ButtonBuilder()
+    .withPayload(ButtonPayload.TALK_TO_BANKER)
+    .withTitle('Talk to banker')
+    .build(),
+  new ButtonBuilder()
+    .withPayload(ButtonPayload.NO_THANKS)
+    .withTitle('No, thanks')
+    .build(),
 ];
