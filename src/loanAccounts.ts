@@ -20,7 +20,7 @@ export const homeLoanAccount1 = (current: number) => {
 export const homeLoanAccount2 = (current: number) => {
   return {
     title: 'Home loan 2:',
-    subtitle: 'Current balance: +$200,000,000\nBSB: 123465  AccNo: *****9876',
+    subtitle: 'Current balance: +$200,000,000\nBSB: 123465 - AccNo: *****9876',
     buttons: [
       selectHomeLoanButton('HL2'),
       {
