@@ -63,7 +63,7 @@ export const resolveIssueHandler = (chat) => {
     const answer = (payload, convo) => {
       console.log(payload);
       const selected = payload.postback;
-      if (!selected || !['HL1'].includes(selected.payload)) {
+      if (!selected || !['SELECT_HOME_LOAN_HL1'].includes(selected.payload)) {
         convo.say('End process, Please try again');
         convo.end();
       } else {
@@ -80,9 +80,9 @@ export const resolveIssueHandler = (chat) => {
 
   const refixModType = (convo) => {
 
-    const question = (convo) => {
-      convo.sendButtonTemplate('Sorry, there is no account eligible to be re-fixed. Please try another option', refixFlowButtons);
-    }
+    const question = () => (
+      convo.sendButtonTemplate('Sorry, there is no account eligible to be re-fixed. Please try another option', refixFlowButtons)
+    );
 
     const answer = (payload, convo) => {
       console.log(payload);
