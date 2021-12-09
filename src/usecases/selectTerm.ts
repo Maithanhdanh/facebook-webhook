@@ -58,7 +58,7 @@ const answerLoan = (payload, convo) => {
   if (!payload || !payload.postback ||
     ![ButtonPayload.VIEW_TERM.toUpperCase(),
       ButtonPayload.ACCEPT_TERM.toUpperCase(),
-      ButtonPayload.CANCEL_TERM.toUpperCase()].includes(payload.postback.toUpperCase())) {
+      ButtonPayload.CANCEL_TERM.toUpperCase()].includes(String(payload.postback).toUpperCase())) {
     convo.end();
   }
   const selected = payload.postback;
