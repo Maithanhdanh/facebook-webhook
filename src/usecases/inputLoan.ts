@@ -28,6 +28,9 @@ const detailsLoan = (convo, text) => {
       !selected ||
       ![ButtonPayload.SELECT_HOME_LOAN_DETAILS].includes(selected.payload)
     ) {
+      convo.say('End process, Please try again');
+      convo.end();
+    } else {
       convo.say(`Please select your term`).then(() => getTerm(convo));
     }
   };
