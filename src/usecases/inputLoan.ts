@@ -1,25 +1,36 @@
 import { selectHomeLoanDetailButton } from '@server/buttons';
-import { LoanAmounts } from '@server/constants';
+import { ButtonPayload, LoanAmounts } from '@server/constants';
 import { getTerm } from '@server/usecases/selectTerm';
 
 const detailsLoan = (convo, text) => {
   const receiptTemplate = `Loan amount is: ${text}`;
-  convo.say(receiptTemplate);
+
+  const askReceiptTemplate = convo.say(receiptTemplate);
+  const answerHomeLoanDetail = (payload, convo) => {
+    const selected = payload.postback;
+    if (
+      !selected ||
+      ![ButtonPayload.SELECT_HOME_LOAN_DETAILS].includes(selected.payload)
+    ) {
+      convo.say({
+        cards: [
+          {
+            title: 'Variable home loan account (existing)',
+            subtitle: `Loan amount: ${text}`,
+            buttons: [selectHomeLoanDetailButton],
+          },
+          {
+            title: 'Fixed home loan account (new)',
+            subtitle: 'Loan amount: +$120,000.00',
+            buttons: [selectHomeLoanDetailButton],
+          },
+        ],
+      });
+    }
+  };
+
   convo
-    .say({
-      cards: [
-        {
-          title: 'Variable home loan account (existing)',
-          subtitle: `Loan amount: ${text}`,
-          buttons: [selectHomeLoanDetailButton],
-        },
-        {
-          title: 'Fixed home loan account (new)',
-          subtitle: 'Loan amount: +$120,000.00',
-          buttons: [selectHomeLoanDetailButton],
-        },
-      ],
-    })
+    .ask(askReceiptTemplate, answerHomeLoanDetail)
     .then(() => getTerm(convo));
 };
 
