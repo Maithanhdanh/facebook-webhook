@@ -19,7 +19,7 @@ export const initWebRoutes = (bot)=> {
     console.log('________________________ current: ', (new Date()).toString());
     console.log('________________________ timestamp current', (new Date()).getTime());
     const current = new Date()
-    current.setSeconds(current.getSeconds() - 100);
+    current.setMinutes(current.getMinutes() - 4);
     console.log('________________________ current - 100: ', current.toString());
     console.log('________________________ timestamp current - 100: ', current.getTime());
     console.log('________________________ date from url: ', new Date(Number(_req.params.timestamp)).toString())
@@ -38,7 +38,7 @@ export const initWebRoutes = (bot)=> {
     console.log('________________________ current: ', (new Date()).toString());
     console.log('________________________ timestamp current', (new Date()).getTime());
     const current = new Date()
-    current.setSeconds(current.getSeconds() - 100);
+    current.setMinutes(current.getMinutes() - 4);
     console.log('________________________ current - 100: ', current.toString());
     console.log('________________________ timestamp current - 100: ', current.getTime());
     console.log('________________________ date from url: ', new Date(Number(_req.params.timestamp)).toString())
