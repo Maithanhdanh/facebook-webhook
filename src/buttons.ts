@@ -78,6 +78,17 @@ export const selectTermButton = new ButtonBuilder()
   .withTitle('Select Term')
   .build();
 
+export const selectHomeLoanButton = [
+  new ButtonBuilder()
+    .withPayload(ButtonPayload.SELECT_HOME_LOAN)
+    .withTitle('Select home loan 1')
+    .build(),
+  new ButtonBuilder()
+    .withPayload(ButtonPayload.SELECT_HOME_LOAN)
+    .withTitle('Select home loan 2')
+    .build(),
+];
+
 export const persistent_menu = [
   {
     locale: 'default',

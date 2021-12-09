@@ -1,37 +1,38 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-import {LoanAmounts, loanModOptions} from "@server/constants";
+import { LoanAmounts, loanModOptions } from '@server/constants';
+import { selectHomeLoanButton } from './buttons';
 
 export const resolveIssueHandler = (chat) => {
   const question = {
     text: `Are you looking to save on your monthly loan payments?`,
-    quickReplies:[
+    quickReplies: [
       {
-        content_type:"text",
-        title:loanModOptions.YES,
+        content_type: 'text',
+        title: loanModOptions.YES,
         // image_url:"https://cdn4.iconfinder.com/data/icons/loan-debt/64/Fixed_Interest_Rate-512.png"
       },
       {
-        content_type:"text",
-        title:loanModOptions.FIX,
+        content_type: 'text',
+        title: loanModOptions.FIX,
         // image_url:"https://cdn4.iconfinder.com/data/icons/loan-debt/64/Fixed_Interest_Rate-512.png"
       },
       {
-        content_type:"text",
-        title:loanModOptions.REFIX,
+        content_type: 'text',
+        title: loanModOptions.REFIX,
         // image_url:"https://cdn-icons-png.flaticon.com/512/1900/1900231.png"
       },
       {
-        content_type:"text",
-        title:loanModOptions.SPLIT,
+        content_type: 'text',
+        title: loanModOptions.SPLIT,
         // image_url:"https://img.icons8.com/ios/452/split-money.png"
       },
       {
-        content_type:"text",
-        title:loanModOptions.NO,
+        content_type: 'text',
+        title: loanModOptions.NO,
         // image_url:"https://img.icons8.com/ios/452/split-money.png"
-      }
-    ]
-  }
+      },
+    ],
+  };
   const askModType = (convo) => {
     convo.ask(question, (payload, convo) => {
       const text = payload.message.text;
@@ -41,7 +42,11 @@ export const resolveIssueHandler = (chat) => {
       } else if (text == loanModOptions.SPLIT) {
         convo.say(`Let me check your account`).then(() => splitModType(convo));
       } else if (text == loanModOptions.YES || text == loanModOptions.NO) {
-        convo.say(`Please select an account which you want to change your home loan`).then(() => getLoanAccount(convo));
+        convo
+          .say(
+            `Please select an account which you want to change your home loan`,
+          )
+          .then(() => getLoanAccount(convo));
       } else {
         convo.end();
       }
@@ -50,7 +55,7 @@ export const resolveIssueHandler = (chat) => {
   const splitModType = (convo) => {
     convo.say(`In develop`);
     convo.end();
-  }
+  };
   chat.conversation((convo) => {
     askModType(convo);
   });
@@ -61,37 +66,31 @@ export const resolveIssueHandler = (chat) => {
       cards: [
         {
           title: 'Home loan 1:',
-          subtitle: 'Current balance: +10,000,000\nBSB: 123465  AccNo: *****4688',
+          subtitle:
+            'Current balance: +10,000,000\nBSB: 123465  AccNo: *****4688',
           buttons: [
-            {
-              type: 'postback',
-              title: 'Select home loan 1',
-              payload: 'HL1',
-            },
+            selectHomeLoanButton[1],
             {
               type: 'web_url',
               title: 'View detail',
               url: `${process.env.BASE_URL}/1/${current}`,
-              webview_height_ratio: 'compact',  // tall, full
-              messenger_extensions: true
+              webview_height_ratio: 'compact', // tall, full
+              messenger_extensions: true,
             },
           ],
         },
         {
           title: 'Home loan 2:',
-          subtitle: 'Current balance: +200,000,000\nBSB: 123465  AccNo: *****9876',
+          subtitle:
+            'Current balance: +200,000,000\nBSB: 123465  AccNo: *****9876',
           buttons: [
-            {
-              type: 'postback',
-              title: 'Select home loan 2',
-              payload: 'HL2',
-            },
+            selectHomeLoanButton[2],
             {
               type: 'web_url',
               title: 'View detail',
               url: `${process.env.BASE_URL}/2/${current}`,
               webview_height_ratio: 'compact',
-              messenger_extensions: true
+              messenger_extensions: true,
             },
           ],
         },
@@ -103,17 +102,23 @@ export const resolveIssueHandler = (chat) => {
         convo.say('End process, Please try again');
         convo.end();
       } else {
-        convo.say(`You choose ${selected.payload == 'HL1' ? 'Home Loan 1' : 'Home Loan 2'}, Let me check`).then(() => {
-          setTimeout(() => {
-            convo.say('There are no eligible account for Loan');
-            convo.end();
-          }, 2000);
-        })
+        convo
+          .say(
+            `You choose ${
+              selected.payload == 'HL1' ? 'Home Loan 1' : 'Home Loan 2'
+            }, Let me check`,
+          )
+          .then(() => {
+            setTimeout(() => {
+              convo.say('There are no eligible account for Loan');
+              convo.end();
+            }, 2000);
+          });
       }
     };
     convo.ask(question, answer);
-  }
-}
+  };
+};
 
 export const inputLoanHandler = (chat) => {
   const options = {

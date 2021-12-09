@@ -22,7 +22,7 @@ import {
   getTerm,
   viewTerms,
 } from '@server/selectTerm';
-import {initWebRoutes} from "@server/routes/web";
+import { initWebRoutes } from '@server/routes/web';
 
 const bot = new BootBot({
   accessToken: process.env.PAGE_ACCESS_TOKEN,
@@ -30,9 +30,7 @@ const bot = new BootBot({
   appSecret: process.env.APP_SECRET,
 });
 
-
 initWebRoutes(bot.app);
-
 
 bot.setGetStartedButton((_, chat) => {
   chat.say('Hello, How can I help you?');
@@ -77,8 +75,10 @@ bot.hear(['food', 'hungry'], (_payload, chat) => {
         content_type: 'text',
         title: 'Red',
         payload: 'HELP_SETTINGS',
-        image_url: 'https://www.pngkey.com/png/full/13-137208_red-phone-icon-png-call-red-icon-png.png',
-      }, {
+        image_url:
+          'https://www.pngkey.com/png/full/13-137208_red-phone-icon-png-call-red-icon-png.png',
+      },
+      {
         content_type: 'text',
         title: 'Green',
         payload: 'HELP_SETTINGS',
@@ -96,7 +96,13 @@ bot.hear(['help'], (_payload, chat) => {
       // { type: 'postback', title: 'Settings', payload: 'HELP_SETTINGS' },
       // { type: 'postback', title: 'FAQ', payload: 'HELP_FAQ' },
       // { type: 'postback', title: 'Talk to a human', payload: 'HELP_HUMAN' },
-      { type: 'web_url', title: 'Talk to google', url: 'https://a724-2405-4800-5716-f34b-d4cb-3b85-f097-4977.ngrok.io/', webview_height_ratio: 'compact', messenger_extensions: true },
+      {
+        type: 'web_url',
+        title: 'Talk to google',
+        url: 'https://a724-2405-4800-5716-f34b-d4cb-3b85-f097-4977.ngrok.io/',
+        webview_height_ratio: 'compact',
+        messenger_extensions: true,
+      },
       // new ButtonBuilder().withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS).withTitle('Show eligible accounts').build(),
     ],
   });
@@ -111,7 +117,6 @@ bot.hear('image', (_payload, chat) => {
 });
 
 bot.hear('ask me something', (_payload, chat) => {
-
   const askName = (convo) => {
     convo.ask(`What's your name?`, (payload, convo) => {
       const text = payload.message.text;
@@ -124,7 +129,9 @@ bot.hear('ask me something', (_payload, chat) => {
     convo.ask(`What's your favorite food?`, (payload, convo) => {
       const text = payload.message.text;
       convo.set('food', text);
-      convo.say(`Got it, your favorite food is ${text}`).then(() => sendSummary(convo));
+      convo
+        .say(`Got it, your favorite food is ${text}`)
+        .then(() => sendSummary(convo));
     });
   };
 
@@ -182,7 +189,9 @@ bot.on(
   },
 );
 
-bot.hear('term', (_payload, chat) => getTerm(_payload, chat));
+bot.on(getPostbackPayload(ButtonPayload.SELECT_HOME_LOAN), (_payload, chat) =>
+  getTerm(_payload, chat),
+);
 
 bot.on(getPostbackPayload(ButtonPayload.SELECT_TERM), (_payload, chat) =>
   getSummary(_payload, chat),

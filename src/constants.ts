@@ -27,6 +27,7 @@ export enum ButtonPayload {
   VIEW_TERM = 'VIEW_TERM',
   ACCEPT_TERM = 'ACCEPT_TERM',
   CANCEL_TERM = 'CANCEL_TERM',
+  SELECT_HOME_LOAN = 'SELECT_HOME_LOAN',
 }
 
 export enum loanModOptions {
