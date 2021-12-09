@@ -124,7 +124,7 @@ export const resolveIssueHandler = (chat) => {
     const answer = (payload, convo) => {
       console.log(payload);
       const selected = payload.postback;
-      if (!selected || !['HL2'].includes(selected.payload)) {
+      if (!selected || !['SELECT_HOME_LOAN_HL2'].includes(selected.payload)) {
         convo.say('End process, Please try again');
         convo.end();
       } else {
@@ -158,11 +158,11 @@ export const resolveIssueHandler = (chat) => {
     };
     const answer = (payload, convo) => {
       const selected = payload.postback;
-      if (!selected || !['HL1', 'HL2'].includes(selected.payload)) {
+      if (!selected || !['SELECT_HOME_LOAN_HL1', 'SELECT_HOME_LOAN_HL2'].includes(selected.payload)) {
         convo.say('End process, Please try again');
         convo.end();
       } else {
-        convo.say(`You choose ${selected.payload == 'HL1' ? 'Home Loan 1' : 'Home Loan 2'}, Let me check`).then(() => {
+        convo.say(`You choose ${selected.payload == 'SELECT_HOME_LOAN_HL1' ? 'Home Loan 1' : 'Home Loan 2'}, Let me check`).then(() => {
           setTimeout(() => {
             convo.say('There are no eligible account for Loan');
             convo.end();

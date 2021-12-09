@@ -1,4 +1,4 @@
-import { selectHomeLoanButton } from "./buttons";
+import { selectHomeLoanButton } from './buttons';
 
 export const ACCOUNT_ID_1 = '68686868';
 export const ACCOUNT_ID_2 = '69696969';
@@ -56,7 +56,7 @@ export const homeLoanAccount1 = (current: number) => {
     title: 'Home loan 1:',
     subtitle: 'Current balance: +$10,000,000\nBSB: 123465 - AccNo: *****4688',
     buttons: [
-      selectHomeLoanButton,
+      selectHomeLoanButton('HL1'),
       {
         type: 'web_url',
         title: 'View detail',
@@ -73,7 +73,7 @@ export const homeLoanAccount2 = (current: number) => {
     title: 'Home loan 2:',
     subtitle: 'Current balance: +$200,000,000\nBSB: 123465  AccNo: *****9876',
     buttons: [
-      selectHomeLoanButton,
+      selectHomeLoanButton('HL2'),
       {
         type: 'web_url',
         title: 'View detail',

@@ -78,8 +78,8 @@ export const selectTermButton = new ButtonBuilder()
   .withTitle('Select')
   .build();
 
-export const selectHomeLoanButton = new ButtonBuilder()
-  .withPayload(ButtonPayload.SELECT_HOME_LOAN)
+export const selectHomeLoanButton = (account) => new ButtonBuilder()
+  .withPayload(ButtonPayload.SELECT_HOME_LOAN + '_' + account)
   .withTitle('Select')
   .build();
 
