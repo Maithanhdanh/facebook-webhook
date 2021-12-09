@@ -139,15 +139,6 @@ bot.hear('ask me something', (_payload, chat) => {
   });
 });
 
-bot.on(
-  getPostbackPayload(ButtonPayload.SELECT_HOME_LOAN_DETAILS),
-  (_payload, chat) => getTerm(_payload, chat),
-);
-
-bot.on(getPostbackPayload(ButtonPayload.SELECT_TERM), (_payload, chat) =>
-  getSummary(_payload, chat),
-);
-
 bot.on(getPostbackPayload(ButtonPayload.VIEW_TERM), (_payload, chat) =>
   viewTerms(_payload, chat),
 );

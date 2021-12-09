@@ -4,7 +4,7 @@ const options = {
   typing: true,
 };
 
-const getTerm = (_payload, chat) => {
+const getTerm = (convo) => {
   const cards = [
     {
       title: '1 Year',
@@ -29,7 +29,7 @@ const getTerm = (_payload, chat) => {
     },
   ];
 
-  chat
+  convo
     .say(
       `You are currently paying
       - Minimum monthly payment: $1,353.33
@@ -40,11 +40,12 @@ const getTerm = (_payload, chat) => {
     `,
       options,
     )
-    .then(() => chat.say({ cards }, options));
+    .then(() => convo.say({ cards }, options))
+    .then(() => getSummary(convo));
 };
 
-const getSummary = (_payload, chat) => {
-  chat
+const getSummary = (convo) => {
+  convo
     .say(
       `You fixed home loan account (new)
       Loan amount: $120,000.00
@@ -54,7 +55,7 @@ const getSummary = (_payload, chat) => {
       options,
     )
     .then(() =>
-      chat.sendGenericTemplate(
+      convo.sendGenericTemplate(
         [
           {
             title: '$1,353.33/month',
@@ -73,7 +74,7 @@ const getSummary = (_payload, chat) => {
       ),
     )
     .then(() =>
-      chat.sendButtonTemplate(
+      convo.sendButtonTemplate(
         `Are you ready to go?`,
         confirmLoanButtons,
         options,
