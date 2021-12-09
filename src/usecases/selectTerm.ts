@@ -107,16 +107,17 @@ const getSummary = (convo) => {
     .then(() => convo.ask(question, answerLoan));
 };
 
-const viewTerms = (_payload, chat) => {
-  chat.say(`selected terms!`, options);
+const viewTerms = (convo) => {
+  convo.say(`selected terms!`, options);
 };
 
-const acceptLoan = (_payload, chat) => {
-  chat.say(`Yeah!`, options);
+const acceptLoan = (convo) => {
+  convo.say(`I send you`, options);
 };
 
-const cancelLoan = (_payload, chat) => {
-  chat.say(`Bye, Bye!`, options);
+const cancelLoan = (convo) => {
+  convo.say(`Bye, Bye!`, options);
+  convo.end();
 };
 
 export { cancelLoan, getSummary, getTerm, viewTerms, acceptLoan };
