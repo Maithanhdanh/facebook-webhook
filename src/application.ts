@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-import {LoanAmounts, loanModOptions} from "@server/constants";
+import {homeloan1, homeloan2, LoanAmounts, loanModOptions} from "@server/constants";
 
 export const resolveIssueHandler = (chat) => {
   const question = {
@@ -36,9 +36,11 @@ export const resolveIssueHandler = (chat) => {
     convo.ask(question, (payload, convo) => {
       const text = payload.message.text;
       convo.set('modType', text);
-      if (text == loanModOptions.FIX || text == loanModOptions.REFIX) {
-        convo.say(`There are no eligible account for Loan`);
-      } else if (text == loanModOptions.SPLIT) {
+      if (text == loanModOptions.FIX) {
+        convo.say(`Please select an account which you want to fix an interest rate`).then(() => fixModType(convo));
+      } else if (text == loanModOptions.REFIX) {
+        convo.say(`Let me check your account`).then(() => refixModType(convo));
+      }else if (text == loanModOptions.SPLIT) {
         convo.say(`Let me check your account`).then(() => splitModType(convo));
       } else if (text == loanModOptions.YES || text == loanModOptions.NO) {
         convo.say(`Please select an account which you want to change your home loan`).then(() => getLoanAccount(convo));
@@ -47,6 +49,35 @@ export const resolveIssueHandler = (chat) => {
       }
     });
   };
+
+  const fixModType = (convo) => {
+    const current = new Date().getTime();
+    const question = {
+      cards: [
+        homeloan1(current)
+      ],
+    };
+    const answer = (payload, convo) => {
+      console.log(payload);
+      convo.end()
+    }
+    convo.ask(question, answer);
+  }
+
+  const refixModType = (convo) => {
+    const current = new Date().getTime();
+    const question = {
+      cards: [
+        homeloan1(current)
+      ],
+    };
+    const answer = (payload, convo) => {
+      console.log(payload);
+      convo.end()
+    }
+    convo.ask(question, answer);
+  }
+
   const splitModType = (convo) => {
     convo.say(`In develop`);
     convo.end();
@@ -59,42 +90,8 @@ export const resolveIssueHandler = (chat) => {
     const current = new Date().getTime();
     const question = {
       cards: [
-        {
-          title: 'Home loan 1:',
-          subtitle: 'Current balance: +10,000,000\nBSB: 123465  AccNo: *****4688',
-          buttons: [
-            {
-              type: 'postback',
-              title: 'Select home loan 1',
-              payload: 'HL1',
-            },
-            {
-              type: 'web_url',
-              title: 'View detail',
-              url: `${process.env.BASE_URL}/1/${current}`,
-              webview_height_ratio: 'compact',  // tall, full
-              messenger_extensions: true
-            },
-          ],
-        },
-        {
-          title: 'Home loan 2:',
-          subtitle: 'Current balance: +200,000,000\nBSB: 123465  AccNo: *****9876',
-          buttons: [
-            {
-              type: 'postback',
-              title: 'Select home loan 2',
-              payload: 'HL2',
-            },
-            {
-              type: 'web_url',
-              title: 'View detail',
-              url: `${process.env.BASE_URL}/2/${current}`,
-              webview_height_ratio: 'compact',
-              messenger_extensions: true
-            },
-          ],
-        },
+        homeloan1(current),
+        homeloan2(current)
       ],
     };
     const answer = (payload, convo) => {
