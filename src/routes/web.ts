@@ -26,7 +26,7 @@ export const initWebRoutes = (bot)=> {
     console.log('________________________ timestamp from url: ', _req.params.timestamp);
     if (Number(_req.params.timestamp) < current.getTime()) {
       console.log('___________________________ session timeout');
-      return;
+      return res.render("notfound.html");
     }
     if (_req.params.id == '1') {
       return res.render("account1.html");
