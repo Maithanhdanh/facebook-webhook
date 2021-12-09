@@ -26,7 +26,11 @@ export const getLoanAccount = (convo) => {
     } else {
       convo.say(`You chose ${selected.payload == 'SELECT_HOME_LOAN_HL1' ? 'Home Loan 1' : 'Home Loan 2'}, Let me check`).then(() => {
         setTimeout(() => {
-          convo.say('There are no eligible account for Loan');
+          if (selected.payload == 'SELECT_HOME_LOAN_HL1') {
+            convo.say('You\'re eligible to fix your Home Loan 1');
+          } else {
+            convo.say('There are no eligible account for Loan');
+          }
           convo.end();
         }, 2000);
       });
