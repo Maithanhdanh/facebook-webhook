@@ -33,9 +33,10 @@ export const initWebRoutes = (bot)=> {
     console.log('________________________', _req.params)
     console.log('________________________', current.getTime());
     console.log('________________________', _req.params.timestamp)
-    // if (Number(_req.params.timestamp) < current.getTime()) {
-    //   return;
-    // }
+    if (Number(_req.params.timestamp) < current.getTime()) {
+      console.log('___________________________ session timeout');
+      return;
+    }
     return res.render("confirm.html");
   });
 
