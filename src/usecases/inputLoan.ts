@@ -5,33 +5,34 @@ import { getTerm } from '@server/usecases/selectTerm';
 const detailsLoan = (convo, text) => {
   const receiptTemplate = `Loan amount is: ${text}`;
 
-  const askReceiptTemplate = convo.say(receiptTemplate);
-  const answerHomeLoanDetail = (payload, convo) => {
+  convo.say(receiptTemplate);
+
+  const question = {
+    cards: [
+      {
+        title: 'Variable home loan account (existing)',
+        subtitle: `Loan amount: ${text}`,
+        buttons: [selectHomeLoanDetailButton],
+      },
+      {
+        title: 'Fixed home loan account (new)',
+        subtitle: 'Loan amount: +$120,000.00',
+        buttons: [selectHomeLoanDetailButton],
+      },
+    ],
+  };
+
+  const answer = (payload, convo) => {
     const selected = payload.postback;
     if (
       !selected ||
       ![ButtonPayload.SELECT_HOME_LOAN_DETAILS].includes(selected.payload)
     ) {
-      convo.say({
-        cards: [
-          {
-            title: 'Variable home loan account (existing)',
-            subtitle: `Loan amount: ${text}`,
-            buttons: [selectHomeLoanDetailButton],
-          },
-          {
-            title: 'Fixed home loan account (new)',
-            subtitle: 'Loan amount: +$120,000.00',
-            buttons: [selectHomeLoanDetailButton],
-          },
-        ],
-      });
+      convo.say(`Please select your term`).then(() => getTerm(convo));
     }
   };
 
-  convo
-    .ask(askReceiptTemplate, answerHomeLoanDetail)
-    .then(() => getTerm(convo));
+  convo.ask(question, answer);
 };
 
 export const handleInputLoan = (convo) => {
