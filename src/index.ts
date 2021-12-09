@@ -14,8 +14,6 @@ import { getPostbackPayload } from '@server/utils';
 import {
   acceptLoan,
   cancelLoan,
-  getSummary,
-  getTerm,
   viewTerms,
 } from '@server/usecases/selectTerm';
 import { initWebRoutes } from '@server/routes/web';
