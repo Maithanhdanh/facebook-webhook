@@ -16,11 +16,18 @@ export const initWebRoutes = (bot)=> {
   app.disable('x-powered-by');
 
   router.get("/:id/:timestamp", (_req, res) => {
+    console.log('________________________ current: ', (new Date()).toString());
+    console.log('________________________ timestamp current', (new Date()).getTime());
     const current = new Date()
-    current.setSeconds(current.getSeconds() - 20);
-    // if (Number(_req.params.timestamp) < current.getTime()) {
-    //   return;
-    // }
+    current.setSeconds(current.getSeconds() - 100);
+    console.log('________________________ current - 100: ', current.toString());
+    console.log('________________________ timestamp current - 100: ', current.getTime());
+    console.log('________________________ date from url: ', new Date(_req.params.timestamp).toString())
+    console.log('________________________ timestamp from url: ', _req.params.timestamp);
+    if (Number(_req.params.timestamp) < current.getTime()) {
+      console.log('___________________________ session timeout');
+      return;
+    }
     if (_req.params.id == '1') {
       return res.render("account1.html");
     }
@@ -28,14 +35,14 @@ export const initWebRoutes = (bot)=> {
   });
 
   router.get("/confirm/:id/:timestamp", (_req, res) => {
-    console.log('________________________', (new Date()).toString());
-    console.log('________________________', (new Date()).getTime());
+    console.log('________________________ current: ', (new Date()).toString());
+    console.log('________________________ timestamp current', (new Date()).getTime());
     const current = new Date()
     current.setSeconds(current.getSeconds() - 100);
-    console.log('________________________', current.toString());
-    console.log('________________________', current.getTime());
-    console.log('________________________', new Date(_req.params.timestamp).toString())
-    console.log('________________________', _req.params.timestamp);
+    console.log('________________________ current - 100: ', current.toString());
+    console.log('________________________ timestamp current - 100: ', current.getTime());
+    console.log('________________________ date from url: ', new Date(_req.params.timestamp).toString())
+    console.log('________________________ timestamp from url: ', _req.params.timestamp);
     if (Number(_req.params.timestamp) < current.getTime()) {
       console.log('___________________________ session timeout');
       return;
