@@ -1,4 +1,4 @@
-import { LoanAmounts } from './constants';
+import { LoanAmounts } from '@server/constants';
 
 const detailsLoan = (convo, text) => {
   const receiptTemplate = `Loan amount is: ${text}`;

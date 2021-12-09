@@ -1,7 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-import { ButtonPayload, homeLoanAccount1, homeLoanAccount2, loanModOptions } from '@server/constants';
+import { ButtonPayload, LoanModOptions } from '@server/constants';
 import { refixFlowButtons } from '@server/buttons';
-import { handleInputLoan } from './inputLoan';
+import { handleInputLoan } from '@server/inputLoan';
+import { homeLoanAccount1, homeLoanAccount2 } from '@server/loanAccounts';
 
 export const resolveIssueHandler = (chat) => {
   const question = {
@@ -9,27 +10,27 @@ export const resolveIssueHandler = (chat) => {
     quickReplies: [
       {
         content_type: 'text',
-        title: loanModOptions.YES,
+        title: LoanModOptions.YES,
         // image_url:"https://cdn4.iconfinder.com/data/icons/loan-debt/64/Fixed_Interest_Rate-512.png"
       },
       {
         content_type: 'text',
-        title: loanModOptions.FIX,
+        title: LoanModOptions.FIX,
         // image_url:"https://cdn4.iconfinder.com/data/icons/loan-debt/64/Fixed_Interest_Rate-512.png"
       },
       {
         content_type: 'text',
-        title: loanModOptions.REFIX,
+        title: LoanModOptions.REFIX,
         // image_url:"https://cdn-icons-png.flaticon.com/512/1900/1900231.png"
       },
       {
         content_type: 'text',
-        title: loanModOptions.SPLIT,
+        title: LoanModOptions.SPLIT,
         // image_url:"https://img.icons8.com/ios/452/split-money.png"
       },
       {
         content_type: 'text',
-        title: loanModOptions.NO,
+        title: LoanModOptions.NO,
         // image_url:"https://img.icons8.com/ios/452/split-money.png"
       },
     ],
@@ -38,13 +39,13 @@ export const resolveIssueHandler = (chat) => {
     convo.ask(question, (payload, convo) => {
       const text = payload.message.text;
       convo.set('modType', text);
-      if (text == loanModOptions.FIX) {
+      if (text == LoanModOptions.FIX) {
         convo.say(`Please select an account which you want to fix an interest rate`).then(() => fixModType(convo));
-      } else if (text == loanModOptions.REFIX) {
+      } else if (text == LoanModOptions.REFIX) {
         convo.say(`Let me check your account`).then(() => refixModType(convo));
-      } else if (text == loanModOptions.SPLIT) {
+      } else if (text == LoanModOptions.SPLIT) {
         convo.say(`Let me check your account`).then(() => splitModType(convo));
-      } else if (text == loanModOptions.YES || text == loanModOptions.NO) {
+      } else if (text == LoanModOptions.YES || text == LoanModOptions.NO) {
         convo.say(`Please select an account which you want to change your home loan`).then(() => getLoanAccount(convo));
       } else {
         convo.end();

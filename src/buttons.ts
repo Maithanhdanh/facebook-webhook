@@ -1,4 +1,4 @@
-import { ButtonPayload } from './constants';
+import { ButtonPayload } from '@server/constants';
 
 export interface MessengerButton {
   type: string;

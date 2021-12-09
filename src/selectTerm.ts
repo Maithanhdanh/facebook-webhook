@@ -1,4 +1,4 @@
-import { confirmLoanButtons, selectTermButton } from './buttons';
+import { confirmLoanButtons, selectTermButton } from '@server/buttons';
 
 const options = {
   typing: true,
