@@ -12,6 +12,11 @@ export const resolveIssueHandler = (chat) => {
       {
         content_type: 'text',
         title: LoanModOptions.YES,
+        // image_url:"https://img.icons8.com/ios/452/split-money.png"
+      },
+      {
+        content_type: 'text',
+        title: LoanModOptions.NO,
         // image_url:"https://cdn4.iconfinder.com/data/icons/loan-debt/64/Fixed_Interest_Rate-512.png"
       },
       {
@@ -27,11 +32,6 @@ export const resolveIssueHandler = (chat) => {
       {
         content_type: 'text',
         title: LoanModOptions.SPLIT,
-        // image_url:"https://img.icons8.com/ios/452/split-money.png"
-      },
-      {
-        content_type: 'text',
-        title: LoanModOptions.NO,
         // image_url:"https://img.icons8.com/ios/452/split-money.png"
       },
     ],
