@@ -9,7 +9,6 @@ export const splitModType = (convo) => {
     ],
   };
   const answer = (payload, convo) => {
-    console.log(payload);
     const selected = payload.postback;
     if (!selected || !['SELECT_HOME_LOAN_HL2'].includes(selected.payload)) {
       convo.say('End process, Please try again');

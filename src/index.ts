@@ -9,13 +9,6 @@ moduleAlias.addAliases({
 import BootBot from 'bootbot';
 import { resolveIssueHandler } from '@server/application';
 import { persistent_menu } from '@server/buttons';
-import { ButtonPayload } from '@server/constants';
-import { getPostbackPayload } from '@server/utils';
-import {
-  acceptLoan,
-  cancelLoan,
-  viewTerms,
-} from '@server/usecases/selectTerm';
 import { initWebRoutes } from '@server/routes/web';
 
 const bot = new BootBot({
@@ -24,7 +17,7 @@ const bot = new BootBot({
   appSecret: process.env.APP_SECRET,
 });
 
-initWebRoutes(bot.app);
+initWebRoutes(bot);
 
 bot.setGetStartedButton((_, chat) => {
   chat.say('Hello, How can I help you?');
@@ -130,17 +123,5 @@ bot.hear('ask me something', (_payload, chat) => {
     askName(convo);
   });
 });
-
-bot.on(getPostbackPayload(ButtonPayload.VIEW_TERM), (_payload, chat) =>
-  viewTerms(_payload, chat),
-);
-
-bot.on(getPostbackPayload(ButtonPayload.ACCEPT_TERM), (_payload, chat) =>
-  acceptLoan(_payload, chat),
-);
-
-bot.on(getPostbackPayload(ButtonPayload.CANCEL_TERM), (_payload, chat) =>
-  cancelLoan(_payload, chat),
-);
 
 bot.start(process.env.PORT);

@@ -4,7 +4,8 @@ import request from "request"
 
 const router = express.Router();
 
-export const initWebRoutes = (app)=> {
+export const initWebRoutes = (bot)=> {
+  const app = bot.app;
   app.use(express.static("./src/public"));
   app.set("view engine", "html");
   app.engine('html', ejs.renderFile);
@@ -17,9 +18,9 @@ export const initWebRoutes = (app)=> {
   router.get("/:id/:timestamp", (_req, res) => {
     const current = new Date()
     current.setSeconds(current.getSeconds() - 20);
-    if (Number(_req.params.timestamp) < current.getTime()) {
-      return;
-    }
+    // if (Number(_req.params.timestamp) < current.getTime()) {
+    //   return;
+    // }
     if (_req.params.id == '1') {
       return res.render("account1.html");
     }
@@ -28,10 +29,10 @@ export const initWebRoutes = (app)=> {
 
   router.get("/confirm/:id/:timestamp", (_req, res) => {
     const current = new Date()
-    current.setSeconds(current.getSeconds() - 20);
-    // if (Number(_req.params.timestamp) < current.getTime()) {
-    //   return;
-    // }
+    current.setSeconds(current.getSeconds() - 100);
+    if (Number(_req.params.timestamp) < current.getTime()) {
+      return;
+    }
     return res.render("confirm.html");
   });
 
@@ -59,9 +60,12 @@ export const initWebRoutes = (app)=> {
       });
     };
     const response = {
-      "text": `You have accepted the changes made to the loan`
+      "text": `We have got your change request\nWhat's next?\nWe'll your change will be processed within 1 to 2 business days.\nWe'll notify you by SMS when your loan has been updated.\nThanks for chatting with us! ^_^`
     };
     callSendAPI(_req.body.psid, response);
+    if (bot._conversations) {
+      bot._conversations[0].end()
+    }
     return res.render("agree.html");
   })
 

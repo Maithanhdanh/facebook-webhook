@@ -4,7 +4,12 @@ export interface MessengerButton {
   type: string;
   payload: string;
   title: string;
+  url?: string;
+  webview_height_ratio?: webview_height_type;
+  messenger_extensions?: boolean;
 }
+
+export type webview_height_type = "compact" | "tall" | "full"
 
 export class ButtonBuilder {
   private readonly _button: MessengerButton;
@@ -13,7 +18,7 @@ export class ButtonBuilder {
     this._button = {
       type: 'postback',
       payload: '',
-      title: '',
+      title: ''
     };
   }
 
@@ -32,6 +37,21 @@ export class ButtonBuilder {
     return this;
   }
 
+  withUrl(url: string): ButtonBuilder {
+    this._button.url = url;
+    return this;
+  }
+
+  withHeightRatio(type: webview_height_type): ButtonBuilder {
+    this._button.webview_height_ratio = type;
+    return this;
+  }
+
+  withMessengerExtension(active: boolean): ButtonBuilder {
+    this._button.messenger_extensions = active;
+    return this;
+  }
+
   build(): MessengerButton {
     return this._button;
   }
@@ -39,12 +59,11 @@ export class ButtonBuilder {
 
 export const confirmLoanButtons = [
   new ButtonBuilder()
-    .withPayload(ButtonPayload.VIEW_TERM)
     .withTitle('View selected terms')
-    .build(),
-  new ButtonBuilder()
-    .withPayload(ButtonPayload.ACCEPT_TERM)
-    .withTitle('Agree and submit')
+    .withType('web_url')
+    .withUrl(`${process.env.BASE_URL}/confirm/2/${(new Date()).getTime()}`)
+    .withMessengerExtension(true)
+    .withHeightRatio("full")
     .build(),
   new ButtonBuilder()
     .withPayload(ButtonPayload.CANCEL_TERM)

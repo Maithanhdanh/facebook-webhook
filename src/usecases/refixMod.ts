@@ -9,7 +9,6 @@ export const refixModType = (convo) => {
   );
 
   const answer = (payload, convo) => {
-    console.log(payload);
     const selected = payload.postback;
     if (!selected) {
       convo.end();

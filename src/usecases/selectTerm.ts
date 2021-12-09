@@ -36,7 +36,7 @@ const getTerm = (convo) => {
       convo.say('End process, Please try again');
       convo.end();
     } else {
-      convo.say('Here is you summary').then(() => getSummary(convo));
+      convo.say('Here is your summary').then(() => getSummary(convo));
     }
   };
 
@@ -55,6 +55,12 @@ const getTerm = (convo) => {
 };
 
 const answerLoan = (payload, convo) => {
+  if (!payload || !payload.postback ||
+    ![ButtonPayload.VIEW_TERM.toUpperCase(),
+      ButtonPayload.ACCEPT_TERM.toUpperCase(),
+      ButtonPayload.CANCEL_TERM.toUpperCase()].includes(payload.postback.toUpperCase())) {
+    convo.end();
+  }
   const selected = payload.postback;
 
   switch (selected) {
@@ -62,10 +68,10 @@ const answerLoan = (payload, convo) => {
       getTerm(convo);
       break;
     case ButtonPayload.ACCEPT_TERM:
-      acceptLoan(payload, convo);
+      acceptLoan(convo);
       break;
     case ButtonPayload.CANCEL_TERM:
-      cancelLoan(payload, convo);
+      cancelLoan(convo);
       break;
     default:
       break;
@@ -78,7 +84,7 @@ const getSummary = (convo) => {
   };
   convo
     .say(
-      `You fixed home loan account (new)
+      `Your fixed home loan account (new)
       Loan amount: $120,000.00
       Estimated repayment: $646.83/month
       Interest rate: 2.00% p.a.
@@ -102,7 +108,7 @@ const getSummary = (convo) => {
           },
         ],
         options,
-      ),
+      )
     )
     .then(() => convo.ask(question, answerLoan));
 };
