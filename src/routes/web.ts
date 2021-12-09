@@ -21,5 +21,18 @@ export const initWebRoutes = (app)=> {
     return res.render("account2.html");
   });
 
+  router.get("/confirm/:id/:timestamp", (_req, res) => {
+    const current = new Date()
+    current.setSeconds(current.getSeconds() - 20);
+    // if (Number(_req.params.timestamp) < current.getTime()) {
+    //   return;
+    // }
+    return res.render("confirm.html");
+  });
+
+  router.post("/", () => {
+    console.log('______________________________________')
+  })
+
   return app.use("/", router);
 };

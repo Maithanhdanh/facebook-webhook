@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'Messenger'));
+
+  window.extAsyncInit = function() {
+    // the Messenger Extensions JS SDK is done loading
+      MessengerExtensions.getContext('415508493397363',
+          function success(thread_context){
+              // success
+              document.getElementById("psid").value(thread_context.psid)
+          },
+          function error(err){
+              // error
+              console.log(err)
+          }
+      );
+  };
+  $(function() {
+      $(".checkbox").click(function(){
+          $('.agree').prop('disabled',$('input.checkbox:checked').length < 2);
+      });
+  });
+
+  function handleAgree() {
+      MessengerExtensions.requestCloseBrowser(function success() {
+          // webview closed
+          console.log('________________________________')
+      }, function error(err) {
+          console.log(err)
+          // an error occurred
+      });
+  }
+</script>
+<body>
+    <form method="post" action="/">
+        <input type="text" hidden name="psid" id="psid">
+        <h1>There will be some changes to the terms of your home loan</h1>
+        <p>The term of your loan will continue apply</p>
+        <p>Any redraw will remain on your loan</p>
+        <h2>Important information about the fixed portion of your loan</h2>
+        <h3>No access to redraw</h3>
+        <p>You can't redraw from a fixed rate loan</p>
+        <h3>Changes to your offset account</h3>
+        <p>Your offset account won't offset the interest on any fixed portion of your loan</p>
+        <h3>Fixed loan term end date</h3>
+        <p>When your fixed loan term expires, your loan will switch back to a variable interest rate and you'll be left with
+        two separate loan accounts. If you want to continue, you'll have 10 days before your term expires to lock</p>
+        <h3>Repayments</h3>
+        <p>When we've processed your change you'll need to arrange your repayment for the new fixed loan account</p>
+        <br>
+        <h2>Fees and charges</h2>
+        <h3>Breaking the fixed portion of your loan</h3>
+        <p>You may incur an economic cost if you choose to break the fixed period of your loan. Examples of breaking your
+            loan early include:</p>
+        <ul>
+            <li>Paying out and closing your loan</li>
+            <li>Making additional payments of more than $20,000 over the term of your fixed loan</li>
+            <li>Changing from fixed rate to variable rate early</li>
+            <li>Changing the purpose of your loan</li>
+        </ul>
+        <h3>Monthly service fee</h3>
+        <p>You'll incur an $8.00 monthly loan service fee on the new fixed loan account. Refer to your home loan general
+            terms and conditions for more information</p>
+        <h4>The complete terms of yout credit contract continue to apply to your loan</h4>
+        <br>
+        <h1>Ready to go?</h1>
+        <h2>If you submit these changes, you agree that:</h2>
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" class="checkbox">
+        <label for="vehicle1"> I understand all of the potential changes to the terms of my loan including
+            associated fees</label>
+        <br>
+        <input type="checkbox" id="vehicle2" name="vehicle2" value="Bike" class="checkbox">
+        <label for="vehicle2"> I also understand there may be costs associated with breaking the fixed rate term early</label>
+        <br>
+        <br>
+        <div>
+            <button type="submit" id="vehicle3" disabled="disabled" class="agree" onclick="handleAgree()">Agree and submit</button>
+        </div>
+    </form>
+</body>
+</html>
