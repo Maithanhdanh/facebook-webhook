@@ -12,9 +12,9 @@ export enum ButtonPayload {
 }
 
 export enum LoanModOptions {
-  FIX = 'Fix my interest rate',
-  REFIX = 'Refix my interest rate',
-  SPLIT = 'Split my home loan',
+  FIX = 'Fix interest rate',
+  REFIX = 'Refix interest rate',
+  SPLIT = 'Split home loan',
   YES = 'Yes',
   NO = `No, I'm rich`,
 }
