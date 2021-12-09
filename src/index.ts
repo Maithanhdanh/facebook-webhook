@@ -11,7 +11,13 @@ import { resolveIssueHandler } from '@server/application';
 import { persistent_menu } from '@server/buttons';
 import { ButtonPayload } from '@server/constants';
 import { getPostbackPayload } from '@server/utils';
-import { acceptLoan, cancelLoan, getSummary, getTerm, viewTerms } from '@server/usecases/selectTerm';
+import {
+  acceptLoan,
+  cancelLoan,
+  getSummary,
+  getTerm,
+  viewTerms,
+} from '@server/usecases/selectTerm';
 import { initWebRoutes } from '@server/routes/web';
 
 const bot = new BootBot({
@@ -26,7 +32,7 @@ bot.setGetStartedButton((_, chat) => {
   chat.say('Hello, How can I help you?');
 });
 
-bot.setGreetingText('Hello, I\'m Lisa. I\'m a virtual assistant');
+bot.setGreetingText("Hello, I'm Lisa. I'm a virtual assistant");
 
 bot.setPersistentMenu(persistent_menu);
 
@@ -43,7 +49,6 @@ bot.hear(
     resolveIssueHandler(chat);
   },
 );
-
 
 bot.hear(['hello', 'hi', /hey( there)?/i], (_payload, chat) => {
   // Send a text message followed by another text message that contains a typing indicator
@@ -134,8 +139,9 @@ bot.hear('ask me something', (_payload, chat) => {
   });
 });
 
-bot.on(getPostbackPayload(ButtonPayload.SELECT_HOME_LOAN + '_HL2'), (_payload, chat) =>
-  getTerm(_payload, chat),
+bot.on(
+  getPostbackPayload(ButtonPayload.SELECT_HOME_LOAN_DETAILS),
+  (_payload, chat) => getTerm(_payload, chat),
 );
 
 bot.on(getPostbackPayload(ButtonPayload.SELECT_TERM), (_payload, chat) =>

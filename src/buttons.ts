@@ -62,6 +62,11 @@ export const selectHomeLoanButton = (account: string) => new ButtonBuilder()
   .withTitle('Select')
   .build();
 
+export const selectHomeLoanDetailButton =  new ButtonBuilder()
+  .withPayload(ButtonPayload.SELECT_HOME_LOAN_DETAILS)
+  .withTitle('Select')
+  .build();
+
 export const persistent_menu = [
   {
     locale: 'default',

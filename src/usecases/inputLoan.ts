@@ -1,3 +1,4 @@
+import { selectHomeLoanDetailButton } from '@server/buttons';
 import { LoanAmounts } from '@server/constants';
 
 const detailsLoan = (convo, text) => {
@@ -9,22 +10,14 @@ const detailsLoan = (convo, text) => {
         title: 'Variable home loan account (existing)',
         subtitle: `Loan amount: ${text}`,
         buttons: [
-          {
-            type: 'postback',
-            title: 'Select',
-            payload: 'variable',
-          },
+          selectHomeLoanDetailButton,
         ],
       },
       {
         title: 'Fixed home loan account (new)',
         subtitle: 'Loan amount: +$120,000.00',
         buttons: [
-          {
-            type: 'postback',
-            title: 'Select',
-            payload: 'fixed',
-          },
+          selectHomeLoanDetailButton,
         ],
       },
     ],
