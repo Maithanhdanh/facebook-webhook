@@ -71,8 +71,8 @@ export const resolveIssueHandler = (chat) => {
             {
               type: 'web_url',
               title: 'View detail',
-              url: `https://a724-2405-4800-5716-f34b-d4cb-3b85-f097-4977.ngrok.io/1/${current}`,
-              webview_height_ratio: 'compact',
+              url: `${process.env.BASE_URL}/1/${current}`,
+              webview_height_ratio: 'compact',  // tall, full
               messenger_extensions: true
             },
           ],
@@ -89,7 +89,7 @@ export const resolveIssueHandler = (chat) => {
             {
               type: 'web_url',
               title: 'View detail',
-              url: `https://a724-2405-4800-5716-f34b-d4cb-3b85-f097-4977.ngrok.io/2/${current}`,
+              url: `${process.env.BASE_URL}/2/${current}`,
               webview_height_ratio: 'compact',
               messenger_extensions: true
             },
