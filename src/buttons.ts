@@ -47,17 +47,6 @@ export const getViewAccountDetailsButton = (
     .build();
 };
 
-export const confirmAccountButtons = [
-  new ButtonBuilder()
-    .withPayload(ButtonPayload.CONFIRM_PROCESSING_ACCOUNT)
-    .withTitle('Yes, modify loan')
-    .build(),
-  new ButtonBuilder()
-    .withPayload(ButtonPayload.TALK_TO_BANKER)
-    .withTitle('Talk to banker')
-    .build(),
-];
-
 export const confirmLoanButtons = [
   new ButtonBuilder()
     .withPayload(ButtonPayload.VIEW_TERM)
@@ -103,7 +92,7 @@ export const persistent_menu = [
         title: 'Support website',
         url: 'https://www.google.com/',
         webview_height_ratio: 'full',
-      }
+      },
     ],
   },
 ];

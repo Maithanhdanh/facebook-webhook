@@ -10,7 +10,6 @@ import BootBot from 'bootbot';
 import { resolveIssueHandler } from '@server/application';
 import { persistent_menu } from '@server/buttons';
 import { ButtonPayload } from '@server/constants';
-import { showEligibleAccounts } from '@server/virtual-assistant';
 import { getPostbackPayload } from '@server/utils';
 import { acceptLoan, cancelLoan, getSummary, getTerm, viewTerms } from '@server/selectTerm';
 import { initWebRoutes } from '@server/routes/web';
@@ -135,39 +134,7 @@ bot.hear('ask me something', (_payload, chat) => {
   });
 });
 
-bot.on(getPostbackPayload(ButtonPayload.ELIGIBLE_ACCOUNTS), (payload, chat) => {
-  showEligibleAccounts(payload, chat);
-});
-
-// Deprecated
-/*bot.on(
-  getPostbackPayload(ButtonPayload.VIEW_ACCOUNT_DETAIL + ACCOUNT_ID_1),
-  (payload, chat) => {
-    viewAccountDetails(payload, chat);
-  },
-);
-
-bot.on(
-  getPostbackPayload(ButtonPayload.VIEW_ACCOUNT_DETAIL + ACCOUNT_ID_2),
-  (payload, chat) => {
-    viewAccountDetails(payload, chat);
-  },
-);
-
-bot.on(getPostbackPayload(ButtonPayload.TALK_TO_BANKER), (_payload, chat) => {
-  chat.say(
-    'In order to help serve you better, Lisa will turn to customer service staff to assist you! Thank you so much!',
-  );
-});
-
-bot.on(
-  getPostbackPayload(ButtonPayload.CONFIRM_PROCESSING_ACCOUNT),
-  (_payload, chat) => {
-    chat.say('This feature is in dev! Thank you so much!');
-  },
-);*/
-
-bot.on(getPostbackPayload(ButtonPayload.SELECT_HOME_LOAN), (_payload, chat) =>
+bot.on(getPostbackPayload(ButtonPayload.SELECT_HOME_LOAN + '_HL2'), (_payload, chat) =>
   getTerm(_payload, chat),
 );
 
