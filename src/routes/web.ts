@@ -76,6 +76,7 @@ export const initWebRoutes = (bot)=> {
     const response = {
       "text": `We have got your change request\nWhat's next?\nWe'll your change will be processed within 1 to 2 business days.\nWe'll notify you by SMS when your loan has been updated.\nThanks for chatting with us! ^_^`
     };
+    console.log(_req.body);
     callSendAPI(_req.body.psid, response);
     if (bot._conversations) {
       bot._conversations[0].end()
