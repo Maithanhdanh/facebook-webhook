@@ -22,7 +22,7 @@ export const initWebRoutes = (bot)=> {
     current.setSeconds(current.getSeconds() - 100);
     console.log('________________________ current - 100: ', current.toString());
     console.log('________________________ timestamp current - 100: ', current.getTime());
-    console.log('________________________ date from url: ', new Date(_req.params.timestamp).toString())
+    console.log('________________________ date from url: ', new Date(Number(_req.params.timestamp)).toString())
     console.log('________________________ timestamp from url: ', _req.params.timestamp);
     if (Number(_req.params.timestamp) < current.getTime()) {
       console.log('___________________________ session timeout');
@@ -41,7 +41,7 @@ export const initWebRoutes = (bot)=> {
     current.setSeconds(current.getSeconds() - 100);
     console.log('________________________ current - 100: ', current.toString());
     console.log('________________________ timestamp current - 100: ', current.getTime());
-    console.log('________________________ date from url: ', new Date(_req.params.timestamp).toString())
+    console.log('________________________ date from url: ', new Date(Number(_req.params.timestamp)).toString())
     console.log('________________________ timestamp from url: ', _req.params.timestamp);
     if (Number(_req.params.timestamp) < current.getTime()) {
       console.log('___________________________ session timeout');
