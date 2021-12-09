@@ -86,19 +86,3 @@ export const homeloan2 = (current: number) => {
   }
 };
 
-export const homeloan3 = (current: number) => {
-  return {
-    title: 'Home loan 3:',
-    subtitle: 'confirm template',
-    buttons: [
-      {
-        type: 'web_url',
-        title: 'View detail',
-        url: `${process.env.BASE_URL}/confirm/2/${current}`,
-        webview_height_ratio: 'compact',
-        messenger_extensions: true
-      },
-    ],
-  }
-};
-

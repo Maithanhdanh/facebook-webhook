@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-import {homeloan1, homeloan2, homeloan3, LoanAmounts, loanModOptions} from "@server/constants";
+import {homeloan1, homeloan2, LoanAmounts, loanModOptions} from "@server/constants";
 
 export const resolveIssueHandler = (chat) => {
   const question = {
@@ -87,12 +87,12 @@ export const resolveIssueHandler = (chat) => {
   });
 
   const getLoanAccount = (convo) => {
+    console.log(convo)
     const current = new Date().getTime();
     const question = {
       cards: [
         homeloan1(current),
-        homeloan2(current),
-        homeloan3(current)
+        homeloan2(current)
       ],
     };
     const answer = (payload, convo) => {
