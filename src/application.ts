@@ -149,7 +149,6 @@ export const resolveIssueHandler = (chat) => {
   });
 
   const getLoanAccount = (convo) => {
-    console.log(convo)
     const current = new Date().getTime();
     const question = {
       cards: [
