@@ -103,11 +103,7 @@ export const persistent_menu = [
         title: 'Support website',
         url: 'https://www.google.com/',
         webview_height_ratio: 'full',
-      },
-      new ButtonBuilder()
-        .withPayload(ButtonPayload.ELIGIBLE_ACCOUNTS)
-        .withTitle('Show eligible accounts')
-        .build(),
+      }
     ],
   },
 ];
