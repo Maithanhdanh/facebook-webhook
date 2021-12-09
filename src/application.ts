@@ -91,7 +91,7 @@ export const resolveIssueHandler = (chat) => {
         convo.end();
       }
 
-      switch (selected) {
+      switch (selected.payload) {
         case ButtonPayload.VIEW_ALL_ACCOUNTS: {
           convo.say(`Let me check your Loan accounts`)
             .then(() => getLoanAccount(convo));
