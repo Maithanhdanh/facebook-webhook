@@ -62,10 +62,10 @@ const answerLoan = (payload, convo) => {
       getTerm(convo);
       break;
     case ButtonPayload.ACCEPT_TERM:
-      acceptLoan(payload, convo);
+      acceptLoan(convo);
       break;
     case ButtonPayload.CANCEL_TERM:
-      cancelLoan(payload, convo);
+      cancelLoan(convo);
       break;
     default:
       break;
