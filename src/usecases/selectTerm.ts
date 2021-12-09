@@ -36,7 +36,7 @@ const getTerm = (convo) => {
       convo.say('End process, Please try again');
       convo.end();
     } else {
-      convo.say().then(() => getSummary(convo));
+      convo.say('Here is you summary').then(() => getSummary(convo));
     }
   };
 
@@ -73,6 +73,9 @@ const answerLoan = (payload, convo) => {
 };
 
 const getSummary = (convo) => {
+  const question = (convo) => {
+    convo.sendButtonTemplate(`Are you ready to go?`, confirmLoanButtons);
+  };
   convo
     .say(
       `You fixed home loan account (new)
@@ -101,8 +104,7 @@ const getSummary = (convo) => {
         options,
       ),
     )
-    .then(() => convo.sendButtonTemplate(`Are you ready to go?`, options))
-    .then(() => convo.ask(confirmLoanButtons, answerLoan));
+    .then(() => convo.ask(question, answerLoan));
 };
 
 const viewTerms = (_payload, chat) => {
