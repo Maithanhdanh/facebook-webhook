@@ -67,18 +67,18 @@ export const confirmLoanButtons = [
     .build(),
   new ButtonBuilder()
     .withPayload(ButtonPayload.CANCEL_TERM)
-    .withTitle('not agree and cancel')
+    .withTitle('Not agree and cancel')
     .build(),
 ];
 
 export const selectTermButton = new ButtonBuilder()
   .withPayload(ButtonPayload.SELECT_TERM)
-  .withTitle('Select')
+  .withTitle('Select Term')
   .build();
 
 export const selectHomeLoanButton = (account: string) => new ButtonBuilder()
   .withPayload(ButtonPayload.SELECT_HOME_LOAN + '_' + account)
-  .withTitle('Select')
+  .withTitle('Select Loan')
   .build();
 
 export const selectHomeLoanDetailButton =  new ButtonBuilder()
