@@ -79,8 +79,9 @@ const answerLoan = (payload, convo) => {
 };
 
 const getSummary = (convo) => {
+  const current = new Date();
   const question = (convo) => {
-    convo.sendButtonTemplate(`Are you ready to go?`, confirmLoanButtons);
+    convo.sendButtonTemplate(`Are you ready to go?`, confirmLoanButtons(current.getTime()));
   };
   convo
     .say(

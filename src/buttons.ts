@@ -57,11 +57,11 @@ export class ButtonBuilder {
   }
 }
 
-export const confirmLoanButtons = [
+export const confirmLoanButtons = (current: number) => [
   new ButtonBuilder()
     .withTitle('View selected terms')
     .withType('web_url')
-    .withUrl(`${process.env.BASE_URL}/confirm/2/${(new Date()).getTime()}`)
+    .withUrl(`${process.env.BASE_URL}/confirm/2/${current}`)
     .withMessengerExtension(true)
     .withHeightRatio("full")
     .build(),
